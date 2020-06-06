@@ -1,0 +1,65 @@
+body, html {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(31, 30, 30);
+}
+
+h1, p, h2, h3 {
+    width: fit-content;
+}
+.create-button {
+    font-size: 60px;
+    color: #915AC5;
+    font-weight: bold;
+    text-decoration: none;
+    position: relative;
+}
+.code-box {
+    font-size: 25px;
+    width: 200px;
+    color: rgb(31, 30, 30);
+    border: 0; 
+    border-radius: 5px;
+    padding: 10px;
+}
+.login-button {
+    background-color: #915AC5;
+    padding: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    border-radius: 60px;
+}
+.code-box:focus {outline: 0;}
+.center {
+    position: absolute; 
+    left: 50%; 
+    top: 40%;
+    transform: translate(-50%);
+
+}
+.topbar {
+    position: absolute;
+    top: 0px;
+    height: 80px;
+    width: 100%;
+}
+#home-link img {
+    position: relative;
+    top: 3px;
+    height: 60px;
+}
+#home-link {
+    position: relative;
+    top: 10px;
+    left: 15%;
+}
+#logout-link {
+    font-size: 20px;
+    position: absolute;
+    top: 35px;
+    right: 15%;
+    color: white;
+    text-decoration: none;
+}

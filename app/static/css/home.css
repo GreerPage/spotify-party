@@ -1,0 +1,15 @@
+.welcome-box {
+    text-align: center;
+    width: 50%;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translateX(-50%);
+    font-size: 20px;
+}
+
+.welcome-box h1, p {
+    margin-top: 0px;
+    display: inline-block;
+}
+.welcome-box p {color: white}

@@ -1,0 +1,2 @@
+npm install babel-cli@6 babel-preset-react-app@3
+npx babel --watch . --out-dir ../static/js/build --presets react-app/prod
