@@ -26,7 +26,7 @@ function TopBar(props) {
         var left = <a href="/logout" id="logout-link">logout</a>
     }
     if (props.left === 'leave') {
-        var left = <a href="/" id="logout-link" onClick={() => delete_cookie('party_id')}>leave party</a>
+        var left = props.elem
     }
     if (props.left === 'end') {
         var left = <a href={`/end/${window.location.pathname.replace('/party/', '')}`} id="logout-link">end party</a>
@@ -34,7 +34,7 @@ function TopBar(props) {
     return (
         <div className='topbar'>
             <div>
-                <a href="/" id="home-link"><img src="/static/images/icon.png"/></a>
+                <a href='/' id="home-link"><img src="/static/images/icon.png"/></a>
                 {left}
             </div>
         </div>

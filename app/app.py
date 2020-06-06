@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, abort, make_response, redirect
+from flask_socketio import SocketIO, emit, join_room, leave_room, send
 import os
 import json
 import requests
@@ -10,7 +11,9 @@ except:
 
 app = Flask(__name__, static_folder="static")
 path = os.path.dirname(os.path.abspath(__file__))
+socketio = SocketIO(app)
 scopes  = 'user-read-playback-state user-modify-playback-state user-read-currently-playing app-remote-control user-read-playback-position'
+
 @app.route('/')
 def home():
     return render_template('home.html', host=request.host)
@@ -56,6 +59,7 @@ def logged_in():
         resp.set_cookie('token', token)
         resp.set_cookie('refresh', refresh)
         return resp
+        
 @app.route('/logout')
 def logout():
     return '<script src="/static/js/globals.js"></script><script src="/static/js/logout.js"></script>'
@@ -153,5 +157,37 @@ def checkjson(name):
         with open(os.path.join(path, 'json', name), 'w') as e:
             json.dump({}, e)
 
-if __name__=='__main__':
-    app.run(debug=True)
+@socketio.on('join')
+def join(data):
+    username = data['username']
+    party = data['party_id']
+    with open (os.path.join(path, 'json', 'parties.json'), 'r') as e:
+        parties = json.load(e)
+    if party in parties:
+        join_room(party)
+        print(username + ' joined ' + party)
+        emit('join', {'username': username, 'action': 'joined'}, room=party)
+
+@socketio.on('leave')
+def leave_socket(data):
+    username = data['username']
+    party = data['party_id']
+    print(username + ' left ' + party)
+    emit('leave',  {'username': username, 'action': 'left'}, room=party)
+
+@socketio.on('update')
+def update(data):
+    ret_data = {
+        'name': data['item']['name'], 
+        'playing': data['is_playing'],
+        'song_uri': data['item']['uri'],
+        'artist': data['item']['album']['artists'][0]['name'],
+        'cover': data['item']['album']['images'][0]['url'],
+        'time': data['progress_ms']
+    }
+    print(json.dumps(ret_data, indent=2))
+    emit('update', ret_data, room=data['party_id'])
+
+
+if __name__ == '__main__':
+    socketio.run(app, debug=True)
