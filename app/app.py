@@ -138,8 +138,17 @@ def leave(name):
     resp.delete_cookie('party_id')
     return resp
 
-@app.route('/refresh/<refresh>')
-def refresh(refresh):
+@app.route('/refresh/<name>/<uid>')
+def refresh(name, uid):
+    checkjson('userdata')
+    file = os.path.join(path, 'json', 'userdata.json')
+    with open(file, 'r') as e:
+        data = json.load(e)
+    if name not in data:
+        abort(404)
+    if data[name]['id'] != uid:
+        abort(404)
+    refresh = data[name]['refresh']
     response = requests.post('https://accounts.spotify.com/api/token', data = {
         'grant_type': 'refresh_token',
         'refresh_token': refresh,

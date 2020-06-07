@@ -17,10 +17,11 @@ function delete_cookie(name) {
     document.cookie = name+'=; Max-Age=-99999999;';  
 }
 async function refreshToken() {
-    var refresh = getCookie('refresh');
-    var res = await fetch('/refresh/'+refresh);
+    var username = getCookie('username');
+    var uid = getCookie('user_id');
+    var res = await fetch('/refresh/'+ username + '/' + uid);
     data = await res.text();
-    delete_cookie('token')
+    delete_cookie('token');
     document.cookie = 'token='+data;
     return new Promise(function(resolve, reject) {
       resolve(data);

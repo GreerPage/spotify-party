@@ -1,19 +1,24 @@
 class PartyOwner extends React.Component {
     constructor() {
         super();
-        this.state = {token: getCookie('token')};
+        this.state = {};
+        this.token = getCookie('token')
     }
-    getListening() {
+    updateListening() {
         fetch('https://api.spotify.com/v1/me/player/currently-playing', {headers: {
-            Authorization: 'Bearer ' + this.state.token
+            Authorization: 'Bearer ' + this.token
         }})
             .then(res =>  res.json())
             .then(data =>{
                 if (data.error) {
                     if (data.error.status === 401){
-                        if (data.error.message === 'The access token expired'){
-                            console.log('refreshing token')
-                            refreshToken().then(t => this.setState({token: t}));
+                        if (data.error.message === 'The access token expired' || data.error.message === 'Invalid access token'){
+                            console.log('refreshing token');
+                            refreshToken().then(t => {
+                                this.token = t;
+                                this.updateListening();
+                                console.log('token rereshed');
+                            });
                             return;
                         }
                     }
@@ -61,12 +66,38 @@ class PartyOwner extends React.Component {
                 }
             })
     }
+    getListening() {
+        fetch('https://api.spotify.com/v1/me/player/currently-playing', {headers: {
+            Authorization: 'Bearer ' + this.token
+        }})
+            .then(res =>  res.json())
+            .then(data =>{
+                if (data.error) {
+                    if (data.error.status === 401){
+                        if (data.error.message === 'The access token expired' || data.error.message === 'Invalid access token'){
+                            console.log('refreshing token');
+                            refreshToken().then(t => {
+                                this.token = t;
+                                this.updateListening();
+                                console.log('token rereshed');
+                            });
+                            return;
+                        }
+                    }
+                }
+                console.log('new', data);
+                data.party_id = getCookie('party_id');
+                data.party_key = getCookie('party_key');
+                this.server.emit('update', data);
+            });
+    }
     componentDidMount() {
         this.server = io();
         this.server.on('connect', () => console.log('connected'))
         this.server.on('join', (data) => {
             if (data.username != getCookie('username')) {
                 console.log(data.username + ' joined your party');
+                this.getListening();
             }
         })
         this.server.emit('join', {username: getCookie('username'), party_id: getCookie('party_id')})
@@ -74,9 +105,9 @@ class PartyOwner extends React.Component {
         let h = today.getHours()*3600;
         let s = today.getMinutes()*60;
         this.time =  h + s + today.getSeconds();
-        this.getListening();
+        this.updateListening();
         this.i = setInterval(() => {
-            this.getListening();
+            this.updateListening();
         }, 1000);
     }
     componentWillUnmount() {
