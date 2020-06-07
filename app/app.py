@@ -55,7 +55,6 @@ def logged_in():
         with open(file, 'w') as e:
             json.dump(data, e)
         resp = make_response('<script src="/static/js/globals.js"></script><script src="/static/js/loggedin.js"></script>')
-        print(user_id)
         resp.set_cookie('user_id', user_id)
         resp.set_cookie('username', user)
         resp.set_cookie('token', token)
@@ -216,4 +215,4 @@ def update(data):
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app, debug=True, host='192.168.0.10')

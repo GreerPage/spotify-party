@@ -98,9 +98,10 @@ class PartyMember extends React.Component {
         this.server.emit('leave', {username: getCookie('username'), party_id: getCookie('party_id')});
         console.log('left party');
         delete_cookie('party_id');
+        window.location.pathname = '/';
     }
     button() {
-        return <a href="/" id="logout-link" onClick={() => this.leave()}>leave party</a>
+        return <a href="#" id="logout-link" onClick={() => this.leave()}>leave party</a>
     }
     render() {
         return (
