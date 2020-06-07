@@ -1,7 +1,7 @@
 class PartyMember extends React.Component {
     constructor() {
         super();
-        this.state = {};
+        this.state = {members: [getCookie('username')]};
         this.token = getCookie('token');
         this.server = io();
     }
@@ -19,7 +19,7 @@ class PartyMember extends React.Component {
                         let data1 = JSON.parse(dat);
                         if (data1.error) {
                             if (data1.error.status === 401){
-                                if (data1.error.message === 'The access token expired') {
+                                if (data1.error.message === 'The access token expired' || data.error.message === 'Invalid access token') {
                                     console.log('refreshing token')
                                     refreshToken().then(t => {
                                         this.token = t;
@@ -70,11 +70,22 @@ class PartyMember extends React.Component {
             this.server.emit('join', {username: getCookie('username'), party_id: getCookie('party_id')});
             console.log('joined party');
         });
+        this.server.on('join', (data) => {
+            if (data.username != getCookie('username')) {
+                console.log(data.username + ' joined the party');
+            }
+            this.setState({members: data.members, owner: data.owner});
+        });
+        this.server.on('leave', (data) => {
+            console.log(data.username + ' left the party')
+            this.setState({members: data.members, owner: data.owner});
+        });
         this.server.on('update', (data) => {
             console.log('updating', data);
             this.updateListening(data);
             this.setState({cover: data.cover, name: data.name, artist: data.artist});
         });
+        this.server
         window.onbeforeunload = () => {
             this.leave();
         }
@@ -91,7 +102,10 @@ class PartyMember extends React.Component {
         return (
             <div>
                 <TopBar left='leave' elem={this.button()} />
-                <Playing cover={this.state.cover} name={this.state.name} artist={this.state.artist} />
+                <div className="party-info-container">
+                    <Playing cover={this.state.cover} name={this.state.name} artist={this.state.artist} />
+                    <MemberList members={this.state.members} owner={this.state.owner} />
+                </div>
             </div>
         )
     }

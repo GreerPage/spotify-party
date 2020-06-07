@@ -52,12 +52,18 @@ function Functions() {
 function MemberList(props) {
     var members = props.members
     var elems = members.map((member) => {
+        if (member === props.owner){
+            return <li key={member}>{member} <span><img style={{height: '20px', paddingLeft: '10px'}} src="/static/images/crown.png"/></span></li>;
+        }
         return <li key={member}>{member}</li>;
     });
     return (
-        <ul>
-            {elems}
-        </ul>
+        <div className="member-container">
+            <h2 style={{color: 'white'}}>Members:</h2>
+            <ul className="member-list">
+                {elems}
+            </ul>
+        </div>
     )
 }
 function Playing(props) {
@@ -66,6 +72,7 @@ function Playing(props) {
     var artist = props.artist;
     return (
         <div className="playing-display">
+            <h2 style={{color: 'white'}}>Currently playing:</h2>
             <Cover url={cover} />
             <Name name={name} />
             <Artist artist={artist} />

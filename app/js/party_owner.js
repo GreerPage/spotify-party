@@ -80,7 +80,7 @@ class PartyOwner extends React.Component {
                             refreshToken().then(t => {
                                 this.token = t;
                                 this.updateListening();
-                                console.log('token rereshed');
+                                console.log('token refreshed');
                             });
                             return;
                         }
@@ -100,14 +100,13 @@ class PartyOwner extends React.Component {
             if (data.username != getCookie('username')) {
                 console.log(data.username + ' joined your party');
                 this.getListening();
-                this.state.members.push(data.username)
-                this.setState({members: this.state.members});
             }
+            this.setState({members: data.members, owner: data.owner});
         });
         this.server.on('leave', (data) => {
             if (data.username != getCookie('username')) {
                 console.log(data.username + ' left your party');
-                
+                this.setState({members: data.members, owner: data.owner});
             }
         });
         this.server.emit('join', {username: getCookie('username'), party_id: getCookie('party_id')})
@@ -127,7 +126,10 @@ class PartyOwner extends React.Component {
         return (
             <div>
                 <TopBar left='end' />
-                <Playing cover={this.state.cover} name={this.state.name} artist={this.state.artist} />
+                <div className="party-info-container">
+                    <Playing cover={this.state.cover} name={this.state.name} artist={this.state.artist} />
+                    <MemberList members={this.state.members} owner={this.state.owner} />
+                </div>
             </div>
         )
     }

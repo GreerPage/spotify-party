@@ -76,7 +76,7 @@ def create():
     file = os.path.join(path, 'json', 'parties.json')
     with open(file, 'r') as e:
         data = json.load(e)
-    data[party_id] = {'owner': owner, 'owner_id': request.cookies.get('user_id'), 'key': party_key}
+    data[party_id] = {'owner': owner, 'owner_id': request.cookies.get('user_id'), 'key': party_key, "members": [owner]}
     with open(file, 'w') as e:
         json.dump(data, e)
     resp = make_response(redirect('/party/{}'.format(party_id)))
@@ -99,7 +99,6 @@ def party(name):
     if username==parties[name]['owner'] and party_key==parties[name]['key']:
         return render_template('party_owner.html', host=request.host)
     resp = make_response(render_template('party_member.html', host=request.host, party_host=parties[name]['owner']))
-    #resp.set_cookie('party_id', name)
     return resp
 
 @app.route('/end/<name>')
@@ -132,7 +131,6 @@ def leave(name):
     if not name in parties:
         abort(404)
     file = os.path.join(path, 'json', 'parties.json')
-    #resp = make_response(redirect('/'))
     resp = make_response('e')
     resp.delete_cookie('party_id')
     return resp
@@ -173,15 +171,29 @@ def join(data):
         parties = json.load(e)
     if party in parties:
         join_room(party)
+        if username not in parties[party]['members']:
+            members = parties[party]['members']
+            members.append(username)
+        else: members = parties[party]['members']
+        parties[party]['members'] = members
+        with open (os.path.join(path, 'json', 'parties.json'), 'w') as e:
+            json.dump(parties, e)
         print(username + ' joined ' + party)
-        emit('join', {'username': username, 'action': 'joined'}, room=party)
+        emit('join', {'username': username, 'action': 'joined', 'members': members, 'owner': parties[party]['owner']}, room=party)
 
 @socketio.on('leave')
 def leave_socket(data):
     username = data['username']
     party = data['party_id']
+    with open (os.path.join(path, 'json', 'parties.json'), 'r') as e:
+        parties = json.load(e)
+    members = parties[party]['members']
+    members.remove(username)
+    parties[party]['members'] = members
+    with open (os.path.join(path, 'json', 'parties.json'), 'w') as e:
+            json.dump(parties, e)
     print(username + ' left ' + party)
-    emit('leave',  {'username': username, 'action': 'left'}, room=party)
+    emit('leave',  {'username': username, 'action': 'left', 'members': members, 'owner': parties[party]['owner']}, room=party)
 
 @socketio.on('update')
 def update(data):
