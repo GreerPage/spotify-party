@@ -65,6 +65,9 @@ class PartyOwner extends React.Component {
                     this.server.emit('update', data)
                     this.data = data;
                 }
+                if (!this.state.name) {
+                    this.setState({cover: data.item.album.images[1].url, name: data.item.name, artist: data.item.album.artists[0].name});
+                }
             })
     }
     getListening() {

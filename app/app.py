@@ -48,9 +48,8 @@ def logged_in():
         user_id = ''.join([random.choice('abcedfghijklmnopqrstuywxzABCDEFGHIJKLMNOPQRSTUVWXZ1234567!@*') for i in range(40)])
         with open(file, 'r') as e:
             data = json.load(e)
-        if user in data:
-            del data[user]
-        data[user] = {'token': token, 'refresh': refresh, 'id': user_id}
+        if user not in data:    
+            data[user] = {'token': token, 'refresh': refresh, 'id': user_id}
         with open(file, 'w') as e:
             json.dump(data, e)
         resp = make_response('<script src="/static/js/globals.js"></script><script src="/static/js/loggedin.js"></script>')
