@@ -185,15 +185,16 @@ def join(data):
 def leave_socket(data):
     username = data['username']
     party = data['party_id']
-    with open (os.path.join(path, 'json', 'parties.json'), 'r') as e:
-        parties = json.load(e)
-    members = parties[party]['members']
-    members.remove(username)
-    parties[party]['members'] = members
-    with open (os.path.join(path, 'json', 'parties.json'), 'w') as e:
-            json.dump(parties, e)
-    print(username + ' left ' + party)
-    emit('leave',  {'username': username, 'action': 'left', 'members': members, 'owner': parties[party]['owner']}, room=party)
+    if party:
+        with open (os.path.join(path, 'json', 'parties.json'), 'r') as e:
+            parties = json.load(e)
+        members = parties[party]['members']
+        members.remove(username)
+        parties[party]['members'] = members
+        with open (os.path.join(path, 'json', 'parties.json'), 'w') as e:
+                json.dump(parties, e)
+        print(username + ' left ' + party)
+        emit('leave',  {'username': username, 'action': 'left', 'members': members, 'owner': parties[party]['owner']}, room=party)
 
 @socketio.on('update')
 def update(data):

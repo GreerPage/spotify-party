@@ -1,11 +1,14 @@
 .welcome-box {
     text-align: center;
     width: 50%;
-    position: absolute;
+    position: relative;
     left: 50%;
-    top: 40%;
+    margin-top: 30vh;
     transform: translateX(-50%);
     font-size: 20px;
+    min-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .welcome-box h1, p {

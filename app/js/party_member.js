@@ -92,7 +92,7 @@ class PartyMember extends React.Component {
     }
     leave() {
         this.server.emit('leave', {username: getCookie('username'), party_id: getCookie('party_id')});
-        console.log('left party')
+        console.log('left party');
         delete_cookie('party_id');
     }
     button() {
