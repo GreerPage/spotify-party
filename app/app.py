@@ -57,7 +57,6 @@ def logged_in():
         resp.set_cookie('user_id', user_id)
         resp.set_cookie('username', user)
         resp.set_cookie('token', token)
-        resp.set_cookie('refresh', refresh)
         return resp
         
 @app.route('/logout')
