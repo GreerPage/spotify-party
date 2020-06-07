@@ -89,6 +89,10 @@ class PartyMember extends React.Component {
         window.onbeforeunload = () => {
             this.leave();
         }
+        window.addEventListener('beforeunload', (event) => {
+            this.leave();
+            event.returnValue = '';
+          });
     }
     leave() {
         this.server.emit('leave', {username: getCookie('username'), party_id: getCookie('party_id')});
