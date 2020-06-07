@@ -1,7 +1,7 @@
 class PartyOwner extends React.Component {
     constructor() {
         super();
-        this.state = {};
+        this.state = {members: [getCookie('username')]};
         this.token = getCookie('token')
     }
     updateListening() {
@@ -32,6 +32,7 @@ class PartyOwner extends React.Component {
                     data.party_key = getCookie('party_key');
                     this.server.emit('update', data)
                     this.data = data;
+                    this.setState({cover: data.item.album.images[1].url, name: data.item.name, artist: data.item.album.artists[0].name});
                 }
                 else if (this.data.is_playing != data.is_playing) {
                     console.log('pause/play', data);
@@ -89,6 +90,7 @@ class PartyOwner extends React.Component {
                 data.party_id = getCookie('party_id');
                 data.party_key = getCookie('party_key');
                 this.server.emit('update', data);
+                this.setState({cover: data.item.album.images[1].url, name: data.item.name, artist: data.item.album.artists[0].name});
             });
     }
     componentDidMount() {
@@ -98,14 +100,22 @@ class PartyOwner extends React.Component {
             if (data.username != getCookie('username')) {
                 console.log(data.username + ' joined your party');
                 this.getListening();
+                this.state.members.push(data.username)
+                this.setState({members: this.state.members});
             }
-        })
+        });
+        this.server.on('leave', (data) => {
+            if (data.username != getCookie('username')) {
+                console.log(data.username + ' left your party');
+                
+            }
+        });
         this.server.emit('join', {username: getCookie('username'), party_id: getCookie('party_id')})
         let today = new Date();
         let h = today.getHours()*3600;
         let s = today.getMinutes()*60;
         this.time =  h + s + today.getSeconds();
-        this.updateListening();
+        this.getListening();
         this.i = setInterval(() => {
             this.updateListening();
         }, 1000);
@@ -115,7 +125,10 @@ class PartyOwner extends React.Component {
     }
     render() {
         return (
-            <TopBar left='end' />
+            <div>
+                <TopBar left='end' />
+                <Playing cover={this.state.cover} name={this.state.name} artist={this.state.artist} />
+            </div>
         )
     }
 }

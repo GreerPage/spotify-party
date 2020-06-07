@@ -49,3 +49,35 @@ function Functions() {
         </div>
     )
 }
+function MemberList(props) {
+    var members = props.members
+    var elems = members.map((member) => {
+        return <li key={member}>{member}</li>;
+    });
+    return (
+        <ul>
+            {elems}
+        </ul>
+    )
+}
+function Playing(props) {
+    var cover = props.cover;
+    var name = props.name;
+    var artist = props.artist;
+    return (
+        <div className="playing-display">
+            <Cover url={cover} />
+            <Name name={name} />
+            <Artist artist={artist} />
+        </div>
+    )
+}
+function Cover(props) {
+    return <img style={{borderRadius: '10px'}} src={props.url}/>
+}
+function Name(props) {
+    return <h3 style={{color: 'white'}}>{props.name}</h3>
+}
+function Artist(props) {
+    return <p style={{color: 'white'}}>{props.artist}</p>
+}

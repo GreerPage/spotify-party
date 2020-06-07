@@ -45,6 +45,12 @@ h1, p, h2, h3 {
     height: 80px;
     width: 100%;
 }
+.playing-display {
+    position: relative;
+    left: 25%;
+    top: 20vh;
+    width: 300px;
+}
 #home-link img {
     position: relative;
     top: 3px;

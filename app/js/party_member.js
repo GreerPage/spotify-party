@@ -49,7 +49,7 @@ class PartyMember extends React.Component {
                         let data1 = JSON.parse(dat);
                         if (data1.error) {
                             if (data1.error.status === 401){
-                                if (data1.error.message === 'The access token expired') {
+                                if (data1.error.message === 'The access token expired' || data.error.message === 'Invalid access token') {
                                     console.log('refreshing token')
                                     refreshToken().then(t => {
                                         this.token = t;
@@ -73,6 +73,7 @@ class PartyMember extends React.Component {
         this.server.on('update', (data) => {
             console.log('updating', data);
             this.updateListening(data);
+            this.setState({cover: data.cover, name: data.name, artist: data.artist});
         });
         window.onbeforeunload = () => {
             this.leave();
@@ -88,7 +89,10 @@ class PartyMember extends React.Component {
     }
     render() {
         return (
-            <TopBar left='leave' elem={this.button()} />
+            <div>
+                <TopBar left='leave' elem={this.button()} />
+                <Playing cover={this.state.cover} name={this.state.name} artist={this.state.artist} />
+            </div>
         )
     }
 }
