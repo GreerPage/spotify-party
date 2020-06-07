@@ -88,9 +88,18 @@ h1, p, h2, h3 {
     .party-info-container {
         width: 300px;
         padding: 10px;
+        padding-left: 30px;
+        padding-right: 30px;
     }
 }
-
+@media screen and (max-width: 362px){
+    .playing-display img {
+        height: 200px;
+    }
+    .party-info-container {
+        width: 200px;
+    }
+}
 #home-link img {
     position: relative;
     top: 3px;

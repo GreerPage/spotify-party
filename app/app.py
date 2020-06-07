@@ -50,6 +50,8 @@ def logged_in():
             data = json.load(e)
         if user not in data:    
             data[user] = {'token': token, 'refresh': refresh, 'id': user_id}
+        else:
+            user_id = data[user]['id']
         with open(file, 'w') as e:
             json.dump(data, e)
         resp = make_response('<script src="/static/js/globals.js"></script><script src="/static/js/loggedin.js"></script>')
@@ -142,8 +144,11 @@ def refresh(name, uid):
     with open(file, 'r') as e:
         data = json.load(e)
     if name not in data:
+        print('e')
         abort(404)
     if data[name]['id'] != uid:
+        print('f')
+        print(data[name]['id'], uid)
         abort(404)
     refresh = data[name]['refresh']
     response = requests.post('https://accounts.spotify.com/api/token', data = {
@@ -211,4 +216,4 @@ def update(data):
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app, debug=True, host='192.168.0.10')

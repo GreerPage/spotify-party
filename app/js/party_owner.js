@@ -117,7 +117,6 @@ class PartyOwner extends React.Component {
         let h = today.getHours()*3600;
         let s = today.getMinutes()*60;
         this.time =  h + s + today.getSeconds();
-        this.getListening();
         this.i = setInterval(() => {
             this.updateListening();
         }, 1000);
