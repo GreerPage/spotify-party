@@ -91,6 +91,9 @@ h1, p, h2, h3 {
         padding-left: 30px;
         padding-right: 30px;
     }
+    .playing-display, .member-container {
+        margin: 0;
+    }
 }
 @media screen and (max-width: 362px){
     .playing-display img {
@@ -98,6 +101,9 @@ h1, p, h2, h3 {
     }
     .party-info-container {
         width: 200px;
+    }
+    .playing-display {
+        height: 390px;
     }
 }
 #home-link img {
