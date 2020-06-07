@@ -45,7 +45,7 @@ def logged_in():
         token = response['access_token']
         refresh = response['refresh_token']
         user = requests.get('https://api.spotify.com/v1/me', headers = {'Authorization': 'Bearer {}'.format(token)}).json()['display_name']
-        user_id = ''.join([random.choice('abcedfghijklmnopqrstuywxzABCDEFGHIJKLMNOPQRSTUVWXZ1234567!@*') for i in range(40)])
+        user_id = ''.join([random.choice('abcedfghijklmnopqrstuywxzABCDEFGHIJKLMNOPQRSTUVWXZ1234567') for i in range(40)])
         with open(file, 'r') as e:
             data = json.load(e)
         if user not in data:    
@@ -53,6 +53,7 @@ def logged_in():
         with open(file, 'w') as e:
             json.dump(data, e)
         resp = make_response('<script src="/static/js/globals.js"></script><script src="/static/js/loggedin.js"></script>')
+        print(user_id)
         resp.set_cookie('user_id', user_id)
         resp.set_cookie('username', user)
         resp.set_cookie('token', token)
