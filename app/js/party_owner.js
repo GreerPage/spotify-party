@@ -129,14 +129,14 @@ class PartyOwner extends React.Component {
             <div>
                 <TopBar left='end' />
                 <div className="party-info-container">
-                    <Playing cover={this.state.cover} name={this.state.name} artist={this.state.artist} />
+                    
                     <MemberList members={this.state.members} owner={this.state.owner} />
                 </div>
             </div>
         )
     }
 }
-
+//<Playing cover={this.state.cover} name={this.state.name} artist={this.state.artist} />
 ReactDOM.render(
     <PartyOwner />,
     document.getElementById('party-mount-point')

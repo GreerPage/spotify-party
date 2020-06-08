@@ -1,7 +1,7 @@
 class PartyMember extends React.Component {
     constructor() {
         super();
-        this.state = {members: [getCookie('username')]};
+        this.state = {members: [getCookie('username')], songLoaded: false};
         this.token = getCookie('token');
         this.server = io();
     }
@@ -83,9 +83,8 @@ class PartyMember extends React.Component {
         this.server.on('update', (data) => {
             console.log('updating', data);
             this.updateListening(data);
-            this.setState({cover: data.cover, name: data.name, artist: data.artist});
+            this.setState({cover: data.cover, song: data.song, artists: data.artists, songLoaded: true});
         });
-        this.server
         window.onbeforeunload = () => {
             this.leave();
         }
@@ -104,7 +103,7 @@ class PartyMember extends React.Component {
             <div>
                 <TopBar left='leave' elem={this.button()} />
                 <div className="party-info-container">
-                    <Playing cover={this.state.cover} name={this.state.name} artist={this.state.artist} />
+                    <Playing cover={this.state.cover} song={this.state.song} artists={this.state.artists} loaded={this.state.songLoaded} />
                     <MemberList members={this.state.members} owner={this.state.owner} />
                 </div>
             </div>

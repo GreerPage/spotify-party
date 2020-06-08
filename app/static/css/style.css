@@ -58,6 +58,13 @@ h1, p, h2, h3 {
     word-wrap: break-word;
     margin: 30px;
 }
+.spotify-link {
+    color: white;
+    text-decoration: none;
+}
+.spotify-link:hover {
+    text-decoration: underline;
+}
 .member-container {
     width: 300px;
     height: 490px;

@@ -221,7 +221,7 @@ def member_check(data):
 
 @socketio.on('update')
 def update(data):
-    artists = [{'name': a['name'], 'link': a['external_urls']['spotify']} for a in data['item']['album']['artists']]
+    artists = [{'name': a['name'], 'link': a['external_urls']['spotify']} for a in data['item']['artists']]
     ret_data = {
         'song': {'name': data['item']['name'], 'link': data['item']['album']['external_urls']['spotify'] + '?highlight=' + data['item']['uri'],}, 
         'playing': data['is_playing'],

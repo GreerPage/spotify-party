@@ -86,23 +86,51 @@ function MemberList(props) {
 }
 function Playing(props) {
     var cover = props.cover;
-    var name = props.name;
-    var artist = props.artist;
-    return (
-        <div className="playing-display">
-            <h2 style={{color: 'white'}}>Currently playing:</h2>
-            <Cover url={cover} />
-            <Name name={name} />
-            <Artist artist={artist} />
-        </div>
-    );
+    var song = props.song;
+    var artists = props.artists;
+    if (props.loaded){
+        return (
+            <div className="playing-display">
+                <h2 style={{color: 'white'}}>Currently playing:</h2>
+                <Cover cover={cover} />
+                <SongTitle song={song} />
+                <Artists artists={artists} />
+            </div>
+        );
+    }
+    return <div className="playing-display"/>;
 }
 function Cover(props) {
-    return <img style={{borderRadius: '10px'}} src={props.url}/>;
+    return (
+        <a href={props.cover.link} target="_blank">
+            <img style={{borderRadius: '10px'}} src={props.cover.img}/>
+        </a>
+    );
 }
-function Name(props) {
-    return <h3 style={{color: 'white'}}>{props.name}</h3>;
+function SongTitle(props) {
+    return (
+        <a href={props.song.link} target="_blank" className="spotify-link">
+            <h3>{props.song.name}</h3>
+        </a>
+    );
 }
+function Artists(props) {
+    return (
+        <div>
+            {props.artists.map((val, i) => {
+                if (i===props.artists.length-1) {
+                    return <Artist key={i} link={val.link} name={val.name} />
+                }
+                return (<span><Artist key={i} link={val.link} name={val.name} /><span style={{color: 'white'}}>{', '}</span></span>);
+            })}
+        </div>
+    );//<p style={{color: 'white'}}>{props.artist}</p>;
+}
+
 function Artist(props) {
-    return <p style={{color: 'white'}}>{props.artist}</p>;
+    return (
+        <span>
+            <a className="spotify-link" href={props.link} target="_blank">{props.name}</a>
+        </span>
+    );
 }
