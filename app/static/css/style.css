@@ -9,16 +9,17 @@ h1, p, h2, h3 {
     width: fit-content;
 }
 .create-button {
-    font-size: 60px;
+    font-size: 70px;
     color: #915AC5;
     font-weight: bold;
     text-decoration: none;
     position: relative;
+    top: 10px;
 }
 .code-box {
     font-size: 25px;
     width: 200px;
-    color: rgb(31, 30, 30);
+    color: #313131;
     border: 0; 
     border-radius: 5px;
     padding: 10px;
@@ -31,7 +32,10 @@ h1, p, h2, h3 {
     font-size: 20px;
     border-radius: 60px;
 }
-.code-box:focus {outline: 0;}
+.code-box:focus {
+    outline: 0;
+    color: rgb(31, 30, 30);
+}
 .center {
     position: absolute; 
     left: 50%; 

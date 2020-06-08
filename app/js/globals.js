@@ -2,34 +2,49 @@ function CreateButton() {
     return <a className="create-button" href='/create'>+</a>;
 }
 
-function JoinBox() {
-    return (
-        <span>
-            <input placeholder="enter a code" className="code-box"/>
-        </span>
-    )
+class JoinBox extends React.Component {
+    constructor () {
+        super();
+        this.state = {};
+    }
+    enterPressed(event) {
+        var code = event.keyCode || event.which;
+        if(code === 13) { 
+            window.location.pathname = '/party/' + this.state.code;
+        } 
+    }
+    updateCode(event) {
+        this.setState({code: event.target.value});
+    }
+    render() {
+        return (
+            <span>
+                <input onChange={this.updateCode.bind(this)} onKeyPress={this.enterPressed.bind(this)} placeholder="Enter a code" className="code-box"/>
+            </span>
+        );
+    }
 }
 
 function LoginButton(props) {
     if (props.redirect) {
-        return <a className="login-button" href={`/login?redirect=${props.redirect}`}>{props.text}</a>
+        return <a className="login-button" href={`/login?redirect=${props.redirect}`}>{props.text}</a>;
     }
     if (props.submit) {
-        let link = getCookie('link').replace('"', '').replace('"', '')
-        delete_cookie('link')
-        return <a className="login-button" href={link}>{props.text}</a>
+        let link = getCookie('link').replace('"', '').replace('"', '');
+        delete_cookie('link');
+        return <a className="login-button" href={link}>{props.text}</a>;
     }
-    return <a className="login-button" href="/login">{props.text}</a>
+    return <a className="login-button" href="/login">{props.text}</a>;
 }
 function TopBar(props) {
     if (!props.left) {
-        var left = <a href="/logout" id="logout-link">logout</a>
+        var left = <a href="/logout" id="logout-link">logout</a>;
     }
     if (props.left === 'leave') {
-        var left = props.elem
+        var left = props.elem;
     }
     if (props.left === 'end') {
-        var left = <a href={`/end/${window.location.pathname.replace('/party/', '')}`} id="logout-link">end party</a>
+        var left = <a href={`/end/${window.location.pathname.replace('/party/', '')}`} id="logout-link">end party</a>;
     }
     return (
         <div className='topbar'>
@@ -47,7 +62,7 @@ function Functions() {
             <span style={{display: 'inline-block', width: '20px', height: '20px'}}></span>
             <JoinBox />
         </div>
-    )
+    );
 }
 function MemberList(props) {
     var members = props.members
@@ -64,7 +79,7 @@ function MemberList(props) {
                 {elems}
             </ul>
         </div>
-    )
+    );
 }
 function Playing(props) {
     var cover = props.cover;
@@ -77,14 +92,14 @@ function Playing(props) {
             <Name name={name} />
             <Artist artist={artist} />
         </div>
-    )
+    );
 }
 function Cover(props) {
-    return <img style={{borderRadius: '10px'}} src={props.url}/>
+    return <img style={{borderRadius: '10px'}} src={props.url}/>;
 }
 function Name(props) {
-    return <h3 style={{color: 'white'}}>{props.name}</h3>
+    return <h3 style={{color: 'white'}}>{props.name}</h3>;
 }
 function Artist(props) {
-    return <p style={{color: 'white'}}>{props.artist}</p>
+    return <p style={{color: 'white'}}>{props.artist}</p>;
 }
