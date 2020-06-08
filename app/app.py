@@ -201,6 +201,15 @@ def leave_socket(data):
             print(username + ' left ' + party)
             emit('leave',  {'username': username, 'action': 'left', 'members': members, 'owner': parties[party]['owner']}, room=party)
 
+@socketio.on('queue member check')
+def que_member_check(data):
+    party = data['party_id']
+    emit('member check', {'party': party}, room=party)
+
+@socketio.on('member check')
+def member_check(data):
+    emit('member check', 'must think', room=party)
+
 @socketio.on('update')
 def update(data):
     ret_data = {
@@ -216,4 +225,7 @@ def update(data):
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host='192.168.0.10')
+    import socket
+    hostname = socket.gethostname()
+    ip_address = socket.gethostbyname(hostname)
+    socketio.run(app, debug=True, host=ip_address)
