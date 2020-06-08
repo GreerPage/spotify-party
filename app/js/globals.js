@@ -69,11 +69,15 @@ function Functions() {
 }
 function MemberList(props) {
     var members = props.members
-    var elems = members.map((member) => {
-        if (member === props.owner){
-            return <li key={member}>{member} <span><img style={{height: '20px', paddingLeft: '10px'}} src="/static/images/crown.png"/></span></li>;
+    var elems = Object.keys(members).map((member) => {
+        if (members[member].owner) {
+            return (
+                <li key={member}><a className="spotify-link" href={members[member].link} target="_blank">{member}</a>
+                    <span><img style={{height: '20px', paddingLeft: '10px'}} src="/static/images/crown.png"/></span>
+                </li>
+            );
         }
-        return <li key={member}>{member}</li>;
+        return <li key={member}><a className="spotify-link" href={members[member].link} target="_blank">{member}</a></li>;
     });
     return (
         <div className="member-container">

@@ -114,10 +114,10 @@ class PartyOwner extends React.Component {
         this.server.on('connect', () => console.log('connected'))
         this.server.on('join', (data) => {
             if (data.username != getCookie('username')) {
-                console.log(data/*.username + ' joined your party'*/);
+                console.log(data.username + ' joined your party');
                 this.getListening();
             }
-            this.setState({members: data.members, owner: data.owner});
+            this.setState({members: data.members});
         });
         this.server.on('leave', (data) => {
             if (data.username != getCookie('username')) {
@@ -144,7 +144,7 @@ class PartyOwner extends React.Component {
                 <TopBar left='end' />
                 <div className="party-info-container">
                     <Playing cover={this.state.cover} song={this.state.song} artists={this.state.artists} loaded={this.state.songLoaded} />
-                    <MemberList members={this.state.members} owner={this.state.owner} />
+                    <MemberList members={this.state.members} />
                 </div>
             </div>
         )

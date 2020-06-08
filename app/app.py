@@ -202,7 +202,7 @@ def join(data):
         with open (os.path.join(path, 'json', 'parties.json'), 'w') as e:
             json.dump(parties, e)
         print(username + ' joined ' + party)
-        emit('join', {'username': username, 'link': user_data[username]['link'], 'owner': owner}, room=party)
+        emit('join', {'username': username, 'members': members, 'owner': owner}, room=party)
 
 @socketio.on('leave')
 def leave_socket(data):
