@@ -124,7 +124,7 @@ function Artists(props) {
                 return (<span><Artist key={i} link={val.link} name={val.name} /><span style={{color: 'white'}}>{', '}</span></span>);
             })}
         </div>
-    );//<p style={{color: 'white'}}>{props.artist}</p>;
+    );
 }
 
 function Artist(props) {

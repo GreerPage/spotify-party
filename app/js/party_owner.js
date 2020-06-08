@@ -1,7 +1,7 @@
 class PartyOwner extends React.Component {
     constructor() {
         super();
-        this.state = {members: [getCookie('username')]};
+        this.state = {members: [getCookie('username')], songLoaded: false};
         this.token = getCookie('token')
     }
     updateListening() {
@@ -32,7 +32,7 @@ class PartyOwner extends React.Component {
                     data.party_key = getCookie('party_key');
                     this.server.emit('update', data)
                     this.data = data;
-                    this.setState({cover: data.item.album.images[1].url, name: data.item.name, artist: data.item.album.artists[0].name});
+                    this.setPlaying(data);
                 }
                 else if (this.data.is_playing != data.is_playing) {
                     console.log('pause/play', data);
@@ -66,7 +66,7 @@ class PartyOwner extends React.Component {
                     this.data = data;
                 }
                 if (!this.state.name) {
-                    this.setState({cover: data.item.album.images[1].url, name: data.item.name, artist: data.item.album.artists[0].name});
+                    this.setPlaying(data);
                 }
             })
     }
@@ -93,8 +93,21 @@ class PartyOwner extends React.Component {
                 data.party_id = getCookie('party_id');
                 data.party_key = getCookie('party_key');
                 this.server.emit('update', data);
-                this.setState({cover: data.item.album.images[1].url, name: data.item.name, artist: data.item.album.artists[0].name});
+                this.setPlaying(data);
             });
+    }
+    setPlaying(data) {
+        let artists = [];
+        let a = data.item.artists;
+        for(i=0; i < a.length; i++) {
+            artists.push({name: a[i].name, link: a[i].external_urls.spotify});
+        }
+        this.setState({
+            cover: {img: data.item.album.images[1].url, link: data.item.album.external_urls.spotify}, 
+            song: {name: data.item.name, link: data.item.album.external_urls.spotify + '?highlight=' + data.item.uri}, 
+            artists: artists,
+            songLoaded: true
+        });
     }
     componentDidMount() {
         this.server = io();
@@ -117,6 +130,7 @@ class PartyOwner extends React.Component {
         let h = today.getHours()*3600;
         let s = today.getMinutes()*60;
         this.time =  h + s + today.getSeconds();
+        this.getListening();
         this.i = setInterval(() => {
             this.updateListening();
         }, 1000);
@@ -129,14 +143,14 @@ class PartyOwner extends React.Component {
             <div>
                 <TopBar left='end' />
                 <div className="party-info-container">
-                    
+                    <Playing cover={this.state.cover} song={this.state.song} artists={this.state.artists} loaded={this.state.songLoaded} />
                     <MemberList members={this.state.members} owner={this.state.owner} />
                 </div>
             </div>
         )
     }
 }
-//<Playing cover={this.state.cover} name={this.state.name} artist={this.state.artist} />
+
 ReactDOM.render(
     <PartyOwner />,
     document.getElementById('party-mount-point')
