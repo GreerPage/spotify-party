@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, abort, make_response, redirect
 from flask_socketio import SocketIO, emit, join_room, leave_room, send
+from werkzeug.exceptions import HTTPException
 import os
 import json
 import requests
@@ -158,6 +159,14 @@ def refresh(name, uid):
     }).json()
     return response['access_token']
 
+@app.errorhandler(Exception)
+def error(e):
+    code = 500
+    name = "Internal Server Error"
+    if isinstance(e, HTTPException):
+        code = e.code
+        name = " " + e.name
+    return render_template("error.html", host=request.host, errno=str(code), name=name)
 
 def checkjson(name):
     name  = '{}.json'.format(name)

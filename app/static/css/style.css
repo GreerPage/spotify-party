@@ -129,3 +129,10 @@ h1, p, h2, h3 {
     color: white;
     text-decoration: none;
 }
+#error-text {
+    margin: auto;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    color: #ffffff;
+}
