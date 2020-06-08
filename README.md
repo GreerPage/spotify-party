@@ -10,10 +10,10 @@ This project uses the [Spotify Web API](https://developer.spotify.com/documentat
 - The frontend is written in primarily [React](https://reactjs.org/)
 - React renders the necessary information for all of the pages
 - The requests to the Spotify API are done in the frontend to prevent my server from getting heavily rate limited
-- As a result all data bettween the Socket.IO server and the clients is done in JavaScript
+- As a result, all data bettween the Socket.IO server and the [clients](clients) is done in JavaScript
 - All React files can be found in `app/js/`, whe they are compiled (see the build notes) they go to `app/static/js/build`
 ### Socket.IO Server
-- The Socket.IO server is done in the Python library [flask socketio](https://github.com/miguelgrinberg/Flask-SocketIO)
+- The Socket.IO server is done in the Python library [flask_socketio](https://github.com/miguelgrinberg/Flask-SocketIO)
 - The server handles all of the syncing between the host of the "party" and all of the members
 - Essentially, when the host sends new information with the update method the server sends the new playback to all members of the corresponding party
 - This code can be found in `app/app.py`
@@ -22,7 +22,7 @@ This project uses the [Spotify Web API](https://developer.spotify.com/documentat
 - The web server handles all of the routing and the rendering of HTML files and such
 - The code for the web server can be found in `app/app.py` along with the Socket.IO server
 ### JSON
-- The "database" I am using is just simply JSON. This stores some spotify user info and the current running parties
+- The "database" I am using is just simply JSON. This stores some Spotify user info and the current running parties
 - This is stored in the `app/json` directory which is created when you run the app
 
 ## Building and Running
