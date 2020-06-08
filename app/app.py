@@ -190,10 +190,11 @@ def join(data):
     with open (os.path.join(path, 'json', 'userdata.json'), 'r') as e:
         user_data = json.load(e)
     if party in parties:
+        owner = False
         join_room(party)
         if username not in parties[party]['members']:
             members = parties[party]['members']
-            members[username] = {'link': user_data[username]['link'], 'owner': False}
+            members[username] = {'link': user_data[username]['link'], 'owner': owner}
         else: 
             members = parties[party]['members']
             owner = members[username]['owner']
@@ -212,7 +213,7 @@ def leave_socket(data):
             parties = json.load(e)
         if party in parties :
             members = parties[party]['members']
-            members.remove(username)
+            del members[username]
             parties[party]['members'] = members
             with open (os.path.join(path, 'json', 'parties.json'), 'w') as e:
                     json.dump(parties, e)
