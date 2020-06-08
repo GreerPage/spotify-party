@@ -5,11 +5,12 @@
     "license": "BSD-2-Clause",
     "homepage": "https://spotify.greerpage.com/",
     "repository": {
-	"type" : "git",
-	"url" : "https://github.com/GreerPage/spotify-party.git"
+        "type": "git",
+        "url": "https://github.com/GreerPage/spotify-party.git"
     },
     "dependencies": {
         "babel-cli": "6",
-        "babel-preset-react-app": "3"
+        "babel-preset-react-app": "3",
+        "braces": ">=2.3.1"
     }
 }
