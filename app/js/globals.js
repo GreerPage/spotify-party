@@ -40,6 +40,9 @@ function TopBar(props) {
     if (!props.left) {
         var left = <a href="/logout" id="logout-link">logout</a>;
     }
+    if (props.left === 'login') {
+        var left = <a href="/login" id="logout-link">login</a>;
+    }
     if (props.left === 'leave') {
         var left = props.elem;
     }

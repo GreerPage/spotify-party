@@ -3,10 +3,18 @@ class ErrorPage extends React.Component {
         super();
         this.state = {};
     }
+    componentDidMount() {
+        if (getCookie('username')){
+            this.setState({loggedIn: true});
+        }
+    }
     render () {
-	return (
-	    <TopBar />
-	);
+        if (!this.state.loggedIn) {
+            return <TopBar left="login" />
+        }
+        return (
+            <TopBar />
+        );
     }
 }
 
