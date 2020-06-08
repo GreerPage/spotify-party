@@ -162,7 +162,7 @@ def refresh(name, uid):
 @app.errorhandler(Exception)
 def error(e):
     code = 500
-    name = ""
+    name = "Internal Server Error"
     if isinstance(e, HTTPException):
         code = e.code
         name = " " + e.name
