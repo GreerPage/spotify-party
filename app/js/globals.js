@@ -29,13 +29,11 @@ function LoginButton(props) {
     if (props.redirect) {
         return <a className="login-button" href={`/login?redirect=${props.redirect}`}>{props.text}</a>;
     }
-    if (props.submit) {
-        let link = getCookie('link').replace('"', '').replace('"', '');
-        delete_cookie('link');
-        return <a className="login-button" href={link}>{props.text}</a>;
-    }
-    return <a className="login-button" href="/login">{props.text}</a>;
+    let link = getCookie('link').replace('"', '').replace('"', '');
+    delete_cookie('link');
+    return <a className="login-button" href={link}>{props.text}</a>;
 }
+
 function TopBar(props) {
     if (!props.left) {
         var left = <a href="/logout" id="logout-link">logout</a>;
