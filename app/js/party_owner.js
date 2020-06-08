@@ -65,7 +65,7 @@ class PartyOwner extends React.Component {
                     this.server.emit('update', data)
                     this.data = data;
                 }
-                if (!this.state.name) {
+                if (!this.state.song) {
                     this.setPlaying(data);
                 }
             })
@@ -114,7 +114,7 @@ class PartyOwner extends React.Component {
         this.server.on('connect', () => console.log('connected'))
         this.server.on('join', (data) => {
             if (data.username != getCookie('username')) {
-                console.log(data.username + ' joined your party');
+                console.log(data/*.username + ' joined your party'*/);
                 this.getListening();
             }
             this.setState({members: data.members, owner: data.owner});

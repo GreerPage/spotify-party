@@ -45,12 +45,14 @@ def logged_in():
     if 'access_token' in response:
         token = response['access_token']
         refresh = response['refresh_token']
-        user = requests.get('https://api.spotify.com/v1/me', headers = {'Authorization': 'Bearer {}'.format(token)}).json()['display_name']
+        user_info = requests.get('https://api.spotify.com/v1/me', headers = {'Authorization': 'Bearer {}'.format(token)}).json()
+        user = user_info['display_name']
+        link = user_info['external_urls']['spotify']
         user_id = ''.join([random.choice('abcedfghijklmnopqrstuywxzABCDEFGHIJKLMNOPQRSTUVWXZ1234567') for i in range(40)])
         with open(file, 'r') as e:
             data = json.load(e)
         if user not in data:    
-            data[user] = {'token': token, 'refresh': refresh, 'id': user_id}
+            data[user] = {'token': token, 'refresh': refresh, 'id': user_id, 'link': link}
         else:
             user_id = data[user]['id']
         with open(file, 'w') as e:
@@ -76,9 +78,12 @@ def create():
     party_key = ''.join([random.choice('abcedfghijklmnopqrstuywxzABCDEFGHIJKLMNOPQRSTUVWXZ1234567!') for i in range(40)])
     checkjson('parties')
     file = os.path.join(path, 'json', 'parties.json')
+    file1 = os.path.join(path, 'json', 'userdata.json')
+    with open(file1, 'r') as e:
+        data1 = json.load(e)
     with open(file, 'r') as e:
         data = json.load(e)
-    data[party_id] = {'owner': owner, 'owner_id': request.cookies.get('user_id'), 'key': party_key, "members": [owner]}
+    data[party_id] = {'owner': owner, 'owner_id': request.cookies.get('user_id'), 'key': party_key, "members": {owner: {'link': data1[owner]['link'], 'owner': True}}}
     with open(file, 'w') as e:
         json.dump(data, e)
     resp = make_response(redirect('/party/{}'.format(party_id)))
@@ -182,17 +187,21 @@ def join(data):
     party = data['party_id']
     with open (os.path.join(path, 'json', 'parties.json'), 'r') as e:
         parties = json.load(e)
+    with open (os.path.join(path, 'json', 'userdata.json'), 'r') as e:
+        user_data = json.load(e)
     if party in parties:
         join_room(party)
         if username not in parties[party]['members']:
             members = parties[party]['members']
-            members.append(username)
-        else: members = parties[party]['members']
+            members[username] = {'link': user_data[username]['link'], 'owner': False}
+        else: 
+            members = parties[party]['members']
+            owner = members[username]['owner']
         parties[party]['members'] = members
         with open (os.path.join(path, 'json', 'parties.json'), 'w') as e:
             json.dump(parties, e)
         print(username + ' joined ' + party)
-        emit('join', {'username': username, 'action': 'joined', 'members': members, 'owner': parties[party]['owner']}, room=party)
+        emit('join', {'username': username, 'link': user_data[username]['link'], 'owner': owner}, room=party)
 
 @socketio.on('leave')
 def leave_socket(data):
