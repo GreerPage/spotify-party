@@ -221,13 +221,14 @@ def member_check(data):
 
 @socketio.on('update')
 def update(data):
+    artists = [{'name': a['name'], 'link': a['external_urls']['spotify']} for a in data['item']['album']['artists']]
     ret_data = {
-        'name': data['item']['name'], 
+        'song': {'name': data['item']['name'], 'link': data['item']['album']['external_urls']['spotify'] + '?highlight=' + data['item']['uri'],}, 
         'playing': data['is_playing'],
         'song_uri': data['item']['uri'],
-        'artist': data['item']['album']['artists'][0]['name'],
-        'cover': data['item']['album']['images'][1]['url'],
-        'time': data['progress_ms']
+        'artists': artists,
+        'cover': {'img': data['item']['album']['images'][1]['url'], 'link': data['item']['album']['external_urls']['spotify']},
+        'time': data['progress_ms'],
     }
     print(json.dumps(ret_data, indent=2))
     emit('update', ret_data, room=data['party_id'])
