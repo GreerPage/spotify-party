@@ -74,7 +74,7 @@ class PartyMember extends React.Component {
             if (data.username != getCookie('username')) {
                 console.log(data.username + ' joined the party');
             }
-            this.setState({members: data.members, owner: data.owner});
+            this.setState({members: data.members});
         });
         this.server.on('leave', (data) => {
             console.log(data.username + ' left the party')
@@ -104,7 +104,7 @@ class PartyMember extends React.Component {
                 <TopBar left='leave' elem={this.button()} />
                 <div className="party-info-container">
                     <Playing cover={this.state.cover} song={this.state.song} artists={this.state.artists} loaded={this.state.songLoaded} />
-                    <MemberList members={this.state.members} owner={this.state.owner} />
+                    <MemberList members={this.state.members} />
                 </div>
             </div>
         )
