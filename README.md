@@ -7,7 +7,7 @@ This project uses the [Spotify Web API](https://developer.spotify.com/documentat
 
 ## Web Stack
 ### Frontend
-- The frontend is written in primarily [React](https://reactjs.org/)
+- The frontend is primarily written in [React](https://reactjs.org/)
 - React renders the necessary information for all of the pages
 - The requests to the Spotify API are done in the frontend to prevent my server from getting heavily rate limited
 - As a result, all data bettween the Socket.IO server and the [clients](clients) is done in JavaScript
