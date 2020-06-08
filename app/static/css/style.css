@@ -135,4 +135,5 @@ h1, p, h2, h3 {
     top: 40%;
     left: 50%;
     color: #ffffff;
+    transform: translateX(-50%);
 }
