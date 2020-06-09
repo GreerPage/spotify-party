@@ -1,7 +1,7 @@
 class PartyMember extends React.Component {
     constructor() {
         super();
-        this.state = {members: [getCookie('username')], songLoaded: false};
+        this.state = {members: [getCookie('username')], songLoaded: false, membersLoaded: false};
         this.token = getCookie('token');
         this.server = io();
     }
@@ -70,11 +70,11 @@ class PartyMember extends React.Component {
             if (data.username != getCookie('username')) {
                 console.log(data.username + ' joined the party');
             }
-            this.setState({members: data.members});
+            this.setState({members: data.members, membersLoaded: true});
         });
         this.server.on('leave', (data) => {
             console.log(data.username + ' left the party')
-            this.setState({members: data.members, owner: data.owner});
+            this.setState({members: data.members, membersLoaded: true});
         });
         this.server.on('update', (data) => {
             console.log('updating', data);
@@ -100,7 +100,7 @@ class PartyMember extends React.Component {
                 <TopBar left='leave' elem={this.button()} />
                 <div className="party-info-container">
                     <Playing cover={this.state.cover} song={this.state.song} artists={this.state.artists} loaded={this.state.songLoaded} />
-                    <MemberList members={this.state.members} />
+                    <MemberList members={this.state.members} loaded={this.state.membersLoaded} />
                 </div>
             </div>
         )
