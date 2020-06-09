@@ -5,7 +5,7 @@ function InviteButton() {
 function InviteDropdown() {
 	return (
 	    <div id="invite-dropdown" className="dropdown-content">
-            <input spellCheck="false" id="link-input" value={"http://" + window.location.hostname + "/party/" + getCookie("party_id")}></input>
+            <input spellCheck="false" readOnly={true} id="link-input" value={"http://" + window.location.hostname + "/party/" + getCookie("party_id")}></input>
             <div onClick={() => {
                 document.getElementById("link-input").select();
                 document.execCommand("copy");
@@ -84,21 +84,26 @@ function Functions() {
 }
 function MemberList(props) {
     var members = props.members
-    var elems = Object.keys(members).map((member) => {
-        if (members[member].owner) {
-            return (
-                <li key={member}><a className="spotify-link" href={members[member].link} target="_blank">{member}</a>
-                    <span><img style={{height: '20px', paddingLeft: '10px'}} src="/static/images/crown.png"/></span>
-                </li>
-            );
-        }
-        return <li key={member}><a className="spotify-link" href={members[member].link} target="_blank">{member}</a></li>;
-    });
+    if (props.loaded) {
+        var elems = Object.keys(members).map((member) => {
+            if (members[member].owner) {
+                return (
+                    <li key={member}><a className="spotify-link" href={members[member].link} target="_blank">{member}</a>
+                        <span><img style={{height: '20px', paddingLeft: '10px'}} src="/static/images/crown.png"/></span>
+                    </li>
+                );
+            }
+            return <li key={member}><a className="spotify-link" href={members[member].link} target="_blank">{member}</a></li>;
+        });
+    }
+    else {
+        elems = <li>loading...</li>
+    }
     return (
         <div className="member-container">
 	    <div className="dropdown">
-		<InviteButton />
-		<InviteDropdown />
+		    <InviteButton />
+		    <InviteDropdown />
 	    </div>
             <h2 style={{color: 'white'}}>Members:</h2>
             <ul className="member-list">
