@@ -136,6 +136,62 @@ h1, p, h2, h3 {
     color: white;
     text-decoration: none;
 }
+.invite-button {
+    margin: 8px;
+    padding: 0 8px 0 8px;
+    font-size: 30px;
+    color: rgb(31, 30, 30);
+    background-color: #915AC5;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    position: relative;
+    top: 10px;
+}
+.invite-button:hover {
+    cursor: pointer;
+}
+.dropdown {
+    float: right;
+    position: relative;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 58px;
+    right: 0px;
+    max-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: rgb(31, 30, 30);
+    color: #ffffff;
+    border-radius: 6px;
+    padding: 12px;
+}
+.link-input {
+    margin: auto;
+}
+.copy-button {
+    padding: 4px;
+    max-width: 42px;
+    height: 24px;
+}
+.copy-button span {
+    line-height: 24px;
+}
+.copy-button:hover {
+    cursor: pointer;
+}
+.copy-img {
+    width: auto;
+    height: 20px;
+    margin: 4px;
+    float: left;
+}
+.show{display: block}
 #error-text {
     margin: auto;
     position: absolute;
@@ -143,4 +199,12 @@ h1, p, h2, h3 {
     left: 50%;
     color: #ffffff;
     transform: translateX(-50%);
+}
+.noselect {
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
