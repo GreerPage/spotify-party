@@ -17,6 +17,11 @@ scopes  = 'user-read-playback-state user-modify-playback-state user-read-current
 user_json = os.path.join(path, 'json', 'userdata.json')
 party_json = os.path.join(path, 'json', 'parties.json')
 
+debug = False
+
+if __name__ =='__main__':
+    debug = True
+
 def checkjson(name):
     name  = '{}.json'.format(name)
     if 'json' not in os.listdir(path):
@@ -160,14 +165,15 @@ def refresh(name, uid):
     }).json()
     return response['access_token']
 
-'''@app.errorhandler(Exception)
-def error(e):
-    code = 500
-    name = "Internal Server Error"
-    if isinstance(e, HTTPException):
-        code = e.code
-        name = " " + e.name
-    return render_template("error.html", host=request.host, errno=str(code), name=name)'''
+if debug:
+    @app.errorhandler(Exception)
+    def error(e):
+        code = 500
+        name = "Internal Server Error"
+        if isinstance(e, HTTPException):
+            code = e.code
+            name = " " + e.name
+        return render_template("error.html", host=request.host, errno=str(code), name=name)
 
 @socketio.on('join')
 def join(data):
@@ -226,7 +232,4 @@ def update(data):
 
 
 if __name__ == '__main__':
-    import socket
-    hostname = socket.gethostname()
-    ip_address = socket.gethostbyname(hostname)
-    socketio.run(app, debug=True, host=ip_address)
+    socketio.run(app, debug=True)
