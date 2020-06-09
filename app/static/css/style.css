@@ -111,7 +111,7 @@ h1, p, h2, h3 {
     .playing-display img {
         height: 200px;
     }
-    .party-info-container {
+    .party-info-container, .member-container {
         width: 200px;
     }
     .playing-display {
