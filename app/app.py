@@ -205,15 +205,6 @@ def leave_socket(data):
             writejson(party_json, parties)
             print(username + ' left ' + party)
             emit('leave',  {'username': username, 'action': 'left', 'members': members, 'owner': parties[party]['owner']}, room=party)
-#UNFINISHED
-@socketio.on('queue member check')
-def que_member_check(data):
-    party = data['party_id']
-    emit('member check', {'party': party}, room=party)
-#UNFINISHED
-@socketio.on('member check')
-def member_check(data):
-    emit('member check', 'must think', room=party)
 
 @socketio.on('update')
 def update(data):
