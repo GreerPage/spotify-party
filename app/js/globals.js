@@ -1,3 +1,20 @@
+function InviteButton() {
+    return <span onClick={() => document.getElementById("invite-dropdown").classList.toggle("show")} className="noselect invite-button">+</span>
+}
+
+function InviteDropdown() {
+	return (
+	    <div id="invite-dropdown" className="dropdown-content">
+		<input id="link-input" value={"https://" + window.location.hostname + "/party/" + getCookie("party_id")}></input>
+		<div onClick={() => {
+		    document.getElementById("link-input").select();
+		    document.execCommand("copy");
+		}}
+		className="copy-button"><img className="copy-img" src="/static/images/copy.png"></img><span>Copy</span></div>
+	    </div>
+	);
+}
+
 function CreateButton() {
     return <a className="create-button" href='/create'>+</a>;
 }
@@ -79,6 +96,10 @@ function MemberList(props) {
     });
     return (
         <div className="member-container">
+	    <div className="dropdown">
+		<InviteButton />
+		<InviteDropdown />
+	    </div>
             <h2 style={{color: 'white'}}>Members:</h2>
             <ul className="member-list">
                 {elems}
