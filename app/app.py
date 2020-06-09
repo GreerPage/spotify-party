@@ -204,7 +204,18 @@ def leave_socket(data):
             parties[party]['members'] = members
             writejson(party_json, parties)
             print(username + ' left ' + party)
+            leave_room(party)
             emit('leave',  {'username': username, 'action': 'left', 'members': members, 'owner': parties[party]['owner']}, room=party)
+
+@socketio.on('end')
+def end_party(data):
+    parties = readjson(party_json)
+    party_id = data['party_id']
+    key = data['key']
+    party = parties[party_id]
+    if party['key'] == key:
+        print('ending')
+        emit('end' '{} has ened this party'.format(party['owner']), room=party_id)
 
 @socketio.on('update')
 def update(data):
