@@ -141,7 +141,6 @@ def end(name):
     if parties[name]['owner'] != owner or parties[name]['key'] != party_key:
         abort(404)
     del parties[name]
-    print(parties)
     writejson(party_json, parties)
     resp = make_response(redirect('/'))
     resp.delete_cookie('party_key')
