@@ -17,10 +17,10 @@ scopes  = 'user-read-playback-state user-modify-playback-state user-read-current
 user_json = os.path.join(path, 'json', 'userdata.json')
 party_json = os.path.join(path, 'json', 'parties.json')
 
-debug = False
+debug = True
 
 if __name__ =='__main__':
-    debug = True
+    debug = False
 
 def checkjson(name):
     name  = '{}.json'.format(name)

@@ -30,4 +30,4 @@ This project uses the [Spotify Web API](https://developer.spotify.com/documentat
 - Then `cd` into `app/` and run `npm install` in order to install the JavaScript library for compiling React
 - Then `cd` into `app/js/` and run `npx babel --watch . --out-dir ../static/js/build --presets react-app/prod`, this will transpile the React files and store the new files in `app/static/js/build/`
 - That command will run forever so you can either stop it after everything is transpiled or keep it open in order for the code to be transpiled as you edit it
-- Finally, `cd` to back into `app/` and run `python app.py` to start the web server on `<your local ip>:5000`
+- Finally, `cd` to back into `app/` and run `python app.py` to start the web server on [http://localhost:5000](http://localhost:5000)
