@@ -29,6 +29,7 @@ This project uses the [Spotify Web API](https://developer.spotify.com/documentat
 - Prerequisites
     - Python >=3.7 (and pip)
     - npm
+
 - Clone the repo and cd into it
 ```
 $ git clone https://github.com/GreerPage/spotify-party.git
