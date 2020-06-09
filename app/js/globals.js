@@ -27,16 +27,23 @@ class JoinBox extends React.Component {
     enterPressed(event) {
         var code = event.keyCode || event.which;
         if(code === 13) { 
-            window.location.pathname = '/party/' + this.state.code;
+            this.submit();
         } 
+    }
+    submit() {
+        if (this.state.code) {    
+            window.location.pathname = '/party/' + this.state.code;
+        }
     }
     updateCode(event) {
         this.setState({code: event.target.value});
+
     }
     render() {
         return (
             <span>
                 <input onChange={this.updateCode.bind(this)} onKeyPress={this.enterPressed.bind(this)} placeholder="Enter a code" className="code-box"/>
+                <span id="join-button" className="noselect" onClick={() => this.submit()}>join</span>
             </span>
         );
     }

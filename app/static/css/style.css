@@ -126,6 +126,16 @@ h1, p, h2, h3 {
 #link-input:focus {
     outline: 0;
 }
+#join-button {
+    color: #915AC5;
+    margin-left: -40px;
+    font-weight: 800;
+    cursor: pointer;
+    background-color: white;
+    padding: 3px;
+    padding-top: 10px;
+    z-index: 1500;
+}
 .invite-button {
     margin: 8px;
     padding: 0 8px 0 8px;
