@@ -25,11 +25,9 @@ class PartyMember extends React.Component {
                                         this.token = t;
                                         this.updateListening(data);
                                     });
-                                    
                                 }
                             }
                         }  
-    
                     }
                 });
         }
@@ -55,11 +53,9 @@ class PartyMember extends React.Component {
                                         this.token = t;
                                         this.updateListening(data);
                                     });
-                                    
                                 }
                             }
                         }  
-    
                     }
                 });
         }

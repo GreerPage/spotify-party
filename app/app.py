@@ -23,6 +23,14 @@ def home():
     resp.set_cookie('link', link)
     return resp
 
+@app.route('/login')
+def login():
+    redirect = 'http://' + request.host+ '/logged-in'
+    link = 'https://accounts.spotify.com/authorize?response_type=code&client_id={}&scope={}&redirect_uri={}'.format(client_id, scopes, redirect)  
+    resp = make_response(render_template('login.html', host=request.host))
+    resp.set_cookie('link', link)
+    return resp
+
 @app.route('/logged-in')
 def logged_in():
     code = request.args.get('code')
