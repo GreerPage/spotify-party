@@ -29,7 +29,7 @@ function LoginButton(props) {
     if (props.redirect) {
         return <a className="login-button" href={`/login?redirect=${props.redirect}`}>{props.text}</a>;
     }
-    let link = getCookie('link').replace('"', '').replace('"', '');
+    let link = getCookie('link');
     delete_cookie('link');
     return <a className="login-button" href={link}>{props.text}</a>;
 }
