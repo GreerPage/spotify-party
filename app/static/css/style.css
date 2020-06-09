@@ -26,6 +26,7 @@ h1, p, h2, h3 {
     border: 0; 
     border-radius: 5px;
     padding: 10px;
+    background-color: white;
 }
 .login-button {
     background-color: #915AC5;
@@ -199,6 +200,9 @@ h1, p, h2, h3 {
     left: 50%;
     color: #ffffff;
     transform: translateX(-50%);
+}
+.hidden {
+    display: none;
 }
 .noselect {
   -webkit-touch-callout: none;

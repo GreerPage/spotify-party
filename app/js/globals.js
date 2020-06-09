@@ -22,7 +22,7 @@ function CreateButton() {
 class JoinBox extends React.Component {
     constructor () {
         super();
-        this.state = {};
+        this.state = {classes: 'noselect hidden'};
     }
     enterPressed(event) {
         var code = event.keyCode || event.which;
@@ -36,14 +36,18 @@ class JoinBox extends React.Component {
         }
     }
     updateCode(event) {
-        this.setState({code: event.target.value});
-
+        if (event.target.value){  
+            this.setState({code: event.target.value, classes: 'noselect'});
+        }
+        else {
+            this.setState({code: null, classes: 'noselect hidden'});
+        }
     }
     render() {
         return (
             <span>
                 <input onChange={this.updateCode.bind(this)} onKeyPress={this.enterPressed.bind(this)} placeholder="Enter a code" className="code-box"/>
-                <span id="join-button" className="noselect" onClick={() => this.submit()}>join</span>
+                <span id="join-button" className={this.state.classes} onClick={() => this.submit()}>join</span>
             </span>
         );
     }
