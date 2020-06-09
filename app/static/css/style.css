@@ -9,12 +9,15 @@ h1, p, h2, h3 {
     width: fit-content;
 }
 .create-button {
-    font-size: 70px;
-    color: #915AC5;
+    padding: 0 12px;
+    color: rgb(31, 30, 30);
+    background-color: #915AC5;
     font-weight: bold;
     text-decoration: none;
+    border-radius: 6px;
+    font-size: 40px;
     position: relative;
-    top: 10px;
+    top: 6px;
 }
 .code-box {
     font-size: 25px;

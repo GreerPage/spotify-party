@@ -9,6 +9,7 @@
     min-width: 300px;
     white-space: nowrap;
     overflow: hidden;
+    height: 240px
 }
 
 .welcome-box h1, p {

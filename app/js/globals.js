@@ -16,7 +16,7 @@ function InviteDropdown() {
 }
 
 function CreateButton() {
-    return <a className="create-button" href='/create'>+</a>;
+    return <a className="create-button noselect" href='/create'>+</a>;
 }
 
 class JoinBox extends React.Component {
