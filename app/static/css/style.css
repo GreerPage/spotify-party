@@ -99,28 +99,6 @@ h1, p, h2, h3 {
     left: 50%;
     transform: translateX(-50%);
 }
-@media screen and (max-width: 759px){
-    .party-info-container {
-        width: 300px;
-        padding: 10px;
-        padding-left: 30px;
-        padding-right: 30px;
-    }
-    .playing-display, .member-container {
-        margin: 0;
-    }
-}
-@media screen and (max-width: 362px){
-    .playing-display img {
-        height: 200px;
-    }
-    .party-info-container, .member-container {
-        width: 200px;
-    }
-    .playing-display {
-        height: 390px;
-    }
-}
 #home-link img {
     position: relative;
     top: 3px;
@@ -138,6 +116,15 @@ h1, p, h2, h3 {
     right: 15%;
     color: white;
     text-decoration: none;
+}
+#link-input {
+    background-color: transparent;
+    border: 0;
+    color: white;
+    font-size: 17px;
+}
+#link-input:focus {
+    outline: 0;
 }
 .invite-button {
     margin: 8px;
@@ -210,4 +197,27 @@ h1, p, h2, h3 {
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
+}
+
+@media screen and (max-width: 759px){
+    .party-info-container {
+        width: 300px;
+        padding: 10px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    .playing-display, .member-container {
+        margin: 0;
+    }
+}
+@media screen and (max-width: 362px){
+    .playing-display img {
+        height: 200px;
+    }
+    .party-info-container, .member-container {
+        width: 200px;
+    }
+    .playing-display {
+        height: 390px;
+    }
 }

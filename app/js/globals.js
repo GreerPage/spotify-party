@@ -5,12 +5,12 @@ function InviteButton() {
 function InviteDropdown() {
 	return (
 	    <div id="invite-dropdown" className="dropdown-content">
-		<input id="link-input" value={"https://" + window.location.hostname + "/party/" + getCookie("party_id")}></input>
-		<div onClick={() => {
-		    document.getElementById("link-input").select();
-		    document.execCommand("copy");
-		}}
-		className="copy-button"><img className="copy-img" src="/static/images/copy.png"></img><span>Copy</span></div>
+            <input spellCheck="false" id="link-input" value={"http://" + window.location.hostname + "/party/" + getCookie("party_id")}></input>
+            <div onClick={() => {
+                document.getElementById("link-input").select();
+                document.execCommand("copy");
+            }}
+            className="copy-button"><img className="copy-img" src="/static/images/copy.png"></img><span>Copy</span></div>
 	    </div>
 	);
 }
