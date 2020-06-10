@@ -1,0 +1,15 @@
+{% extends 'head.html' %}
+{% block head %}
+    <link href="/static/css/home.css" rel="stylesheet">
+    <title>spotify party</title>
+{% endblock %}
+
+{% block body %}
+    <div id="mount-point"></div>
+    <div class="center" style="color: white; font-size: 20px;">
+        Due to limitations with the Spotify API, you must have premium to join parties :(
+    </div>
+    <script>
+        ReactDOM.render(React.createElement(TopBar, null), document.getElementById('mount-point'))
+    </script>
+{% endblock %}

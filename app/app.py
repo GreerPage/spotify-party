@@ -62,15 +62,15 @@ def logged_in():
     code = request.args.get('code')
     if not code:
         abort(404)    
-    redirect = 'http://' + request.host+ '/logged-in'
+    redirect_url = 'http://' + request.host+ '/logged-in'
     response = requests.post('https://accounts.spotify.com/api/token', data = {
         'grant_type': 'authorization_code',
         'code': code,
-        'redirect_uri': redirect,
+        'redirect_uri': redirect_url,
         'client_id': client_id,
         'client_secret': secret
     }).json()
-
+    print(code)
     if 'access_token' in response:
         token, refresh = response['access_token'], response['refresh_token']
         user_info = requests.get('https://api.spotify.com/v1/me', headers = {'Authorization': 'Bearer {}'.format(token)}).json()
@@ -92,6 +92,7 @@ def logged_in():
         resp.set_cookie('username', user)
         resp.set_cookie('token', token)
         return resp
+    return redirect('/')
         
 @app.route('/logout')
 def logout():
@@ -132,6 +133,8 @@ def party(name):
     if username==parties[name]['owner'] and party_key==parties[name]['key']:
         return render_template('party_owner.html', host=request.host)
     resp = make_response(render_template('party_member.html', host=request.host, party_host=parties[name]['owner']))
+    if not readjson(user_json)[username]['premium']:
+        resp = make_response(render_template('not_premium.html', host=request.host))
     return resp
 
 @app.route('/end/<name>')
@@ -236,4 +239,4 @@ def update(data):
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app, debug=True, host='192.168.0.10')
