@@ -138,10 +138,16 @@ class PartyOwner extends React.Component {
     componentWillUnmount() {
         clearInterval(this.i);
     }
+    
+    end() {
+        this.server.emit('end', {party_id: getCookie('party_id'), key: getCookie('party_key')});
+    }
     render() {
         return (
             <div>
-                <TopBar left='end' />
+                <div onClick={() => this.end()}>  
+                    <TopBar left='end' />
+                </div>
                 <div className="party-info-container">
                     <Playing cover={this.state.cover} song={this.state.song} artists={this.state.artists} loaded={this.state.songLoaded} />
                     <MemberList members={this.state.members} loaded={this.state.membersLoaded} />
