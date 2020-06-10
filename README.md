@@ -25,7 +25,7 @@ This project uses the [Spotify Web API](https://developer.spotify.com/documentat
     - Essentially, when the host sends new information with the update method the server sends the new playback to all members of the corresponding party
     - This code can be found in `app/app.py`
 - ### Web Server
-    - The web server is written in [Flask](https://palletsprojects.com/p/flask/)
+    - The web server is written in Python with [Flask](https://palletsprojects.com/p/flask/)
     - The web server handles all of the routing and the rendering of HTML files and such
     - The code for the web server can be found in `app/app.py` along with the Socket.IO server
 - ### JSON
