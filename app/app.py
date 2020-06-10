@@ -13,7 +13,7 @@ except:
 app = Flask(__name__, static_folder="static")
 path = os.path.dirname(os.path.abspath(__file__))
 socketio = SocketIO(app)
-scopes  = 'user-read-playback-state user-modify-playback-state user-read-currently-playing app-remote-control user-read-playback-position'
+scopes  = 'user-read-playback-state user-modify-playback-state user-read-currently-playing app-remote-control user-read-playback-position user-read-private user-read-email'
 user_json = os.path.join(path, 'json', 'userdata.json')
 party_json = os.path.join(path, 'json', 'parties.json')
 
@@ -75,11 +75,15 @@ def logged_in():
         token, refresh = response['access_token'], response['refresh_token']
         user_info = requests.get('https://api.spotify.com/v1/me', headers = {'Authorization': 'Bearer {}'.format(token)}).json()
         user, link = user_info['display_name'], user_info['external_urls']['spotify']
+        if user_info['product'] == 'premium':
+            premium = True
+        else:
+            premium = False
         user_id = randomchars(40)
         checkjson('userdata')
         data = readjson(user_json)
         if user not in data:    
-            data[user] = {'token': token, 'refresh': refresh, 'id': user_id, 'link': link}
+            data[user] = {'token': token, 'refresh': refresh, 'id': user_id, 'link': link, 'premium': premium}
         else:
             user_id = data[user]['id']
         writejson(user_json, data)
