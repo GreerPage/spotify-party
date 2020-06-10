@@ -214,8 +214,7 @@ def end_party(data):
     key = data['key']
     party = parties[party_id]
     if party['key'] == key:
-        print('ending')
-        emit('end' '{} has ened this party'.format(party['owner']), room=party_id)
+        emit('end', '{} has ended this party'.format(party['owner']), room=party_id)
 
 @socketio.on('update')
 def update(data):
@@ -233,4 +232,4 @@ def update(data):
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app, debug=True, host='192.168.0.10')
