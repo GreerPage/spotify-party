@@ -14,9 +14,9 @@ class Home extends React.Component {
                 <div>
                     <TopBar />
                     <div className="welcome-box">
-                        <h1 style={{marginBottom: '15px', color: '#915AC5'}}>hi {this.state.username}!</h1>
+                        <h1 style={{marginBottom: '15px', color: '#915AC5'}}>Hi, {this.state.username}!</h1>
                         <br/>
-                        <p>click the "+" to make a party</p>
+                        <p>click the plus to make a party</p>
                         <br/>
                         <p>or enter a code to join below</p>
                         <br/>

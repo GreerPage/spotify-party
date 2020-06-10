@@ -100,7 +100,7 @@ function MemberList(props) {
             if (members[member].owner) {
                 return (
                     <li key={member}><a className="spotify-link" href={members[member].link} target="_blank">{member}</a>
-                        <span><img style={{height: '20px', paddingLeft: '10px'}} src="/static/images/crown.png"/></span>
+                        <span><img style={{height: '20px', marginLeft: '10px'}} src="/static/images/crown.png"/></span>
                     </li>
                 );
             }
