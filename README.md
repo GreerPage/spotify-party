@@ -1,7 +1,7 @@
 # Spotify Party
 
 An app to sync Spotify playback between users
-
+[https://spotify.greerpage.com](https://spotify.greerpage.com)
 ## About
 This project uses the [Spotify Web API](https://developer.spotify.com/documentation/web-api/) to get and set user playback. It is using [Socket.IO](https://github.com/socketio/socket.io) to sync user playback. Essentially, the host sends requests to the Spotify API and when it detects a change, it sends the updated information to the Socket.IO server which disributes necessary information to the clients. 
 
@@ -31,23 +31,23 @@ This project uses the [Spotify Web API](https://developer.spotify.com/documentat
     - npm
 
 - Clone the repo and cd into it
-```
+```bash
 $ git clone https://github.com/GreerPage/spotify-party.git
 $ cd spotify-party
 ```
 - Install the dependencies
-```
+```bash
 $ pip install -r requirements.txt
 $ cd app
 $ npm install
 ```
 - Transpile the JSX to `app/static/js/build/` (you can keep this running in the background)
-```
+```bash
 $ cd js
 $ npx babel --watch . --out-dir ../static/js/build --presets react-app/prod
 ```
 - Run Flask
-```
+```bash
 $ cd ..
 $ python app.py
 ```
