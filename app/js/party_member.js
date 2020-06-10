@@ -81,6 +81,10 @@ class PartyMember extends React.Component {
             this.updateListening(data);
             this.setState({cover: data.cover, song: data.song, artists: data.artists, songLoaded: true});
         });
+        this.server.on('end', (data) => {
+            console.log(data);
+            this.setState({over: true});
+        });
         window.onbeforeunload = () => {
             this.leave();
         }
@@ -95,15 +99,25 @@ class PartyMember extends React.Component {
         return <a href="#" id="logout-link" onClick={() => this.leave()}>leave party</a>
     }
     render() {
+        if (!this.state.over) {
+            return (
+                <div>
+                    <TopBar left='leave' elem={this.button()} />
+                    <div className="party-info-container">
+                        <Playing cover={this.state.cover} song={this.state.song} artists={this.state.artists} loaded={this.state.songLoaded} />
+                        <MemberList members={this.state.members} loaded={this.state.membersLoaded} />
+                    </div>
+                </div>
+            );
+        }
         return (
-            <div>
+            <div>    
                 <TopBar left='leave' elem={this.button()} />
-                <div className="party-info-container">
-                    <Playing cover={this.state.cover} song={this.state.song} artists={this.state.artists} loaded={this.state.songLoaded} />
-                    <MemberList members={this.state.members} loaded={this.state.membersLoaded} />
+                <div className="center" style={{fontSize: '25px', color: 'white'}}>
+                    This party has been ended by the owner 
                 </div>
             </div>
-        )
+        );
     }
 }
 
