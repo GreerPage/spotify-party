@@ -5,6 +5,10 @@ An app to sync Spotify playback between users.
 
 [https://spotify.greerpage.com](https://spotify.greerpage.com) - if people use it I will get a real domain name
 
+![license](https://img.shields.io/github/license/GreerPage/spotify-party)
+![contributors](https://img.shields.io/github/contributors/greerpage/spotify-party)
+
+
 ## About
 This project uses the [Spotify Web API](https://developer.spotify.com/documentation/web-api/) to get and set user playback. It is using [Socket.IO](https://github.com/socketio/socket.io) to sync user playback. Essentially, the host sends requests to the Spotify API and when it detects a change, it sends the updated information to the Socket.IO server which disributes necessary information to the clients. 
 
