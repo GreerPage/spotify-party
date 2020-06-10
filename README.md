@@ -1,6 +1,6 @@
-# Spotify Party
-
-An app to sync Spotify playback between users
+#   Spotify Party
+![logo](https://raw.githubusercontent.com/GreerPage/spotify-party/master/app/static/images/favicon.png)
+An app to sync Spotify playback between users.
 
 ## About
 This project uses the [Spotify Web API](https://developer.spotify.com/documentation/web-api/) to get and set user playback. It is using [Socket.IO](https://github.com/socketio/socket.io) to sync user playback. Essentially, the host sends requests to the Spotify API and when it detects a change, it sends the updated information to the Socket.IO server which disributes necessary information to the clients. 

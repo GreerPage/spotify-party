@@ -43,9 +43,8 @@ h1, p, h2, h3 {
 .center {
     position: absolute; 
     left: 50%; 
-    top: 40%;
-    transform: translate(-50%);
-
+    top: 30%;
+    transform: translate(-40%);
 }
 .topbar {
     position: fixed;

@@ -28,8 +28,8 @@ class Home extends React.Component {
         else {
             return (
                 <div className='center'>
-                    <h1 style={{color: 'white', fontSize: '40px'}}>welcome to spotify party!</h1>
-                    <LoginButton text="please log in" />
+                    <h1 style={{color: 'white', fontSize: '40px'}}>Welcome to spotify party!</h1>
+                    <LoginButton text="Log in with Spotify" />
                 </div>
             );
         }
