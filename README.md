@@ -52,7 +52,7 @@ $ npx babel --watch . --out-dir ../static/js/build --presets react-app/prod
 - Make `app/secrets.py`
 ```python
 # spotify client and secret id (https://developer.spotify.com/dashboard)
-client_id = 'your_client_id"'
+client_id = 'your_client_id'
 secret = 'your_client_secret'
 ```
 - Run Flask
