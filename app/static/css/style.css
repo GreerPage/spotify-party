@@ -80,6 +80,10 @@ h1, p, h2, h3 {
     margin: 30px;
     word-wrap: break-word;
 }
+.member-list-container {
+    height: 350px;
+    overflow: auto;
+}
 .member-list {
     list-style: none;
     font-size: 25px;
@@ -218,7 +222,17 @@ h1, p, h2, h3 {
         -ms-user-select: none;
             user-select: none;
 }
-
+.custom-scrollbar::-webkit-scrollbar {
+    width: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: rgb(17, 17, 17);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgb(53, 52, 52);
+    border-radius: 5px;
+}
 @media screen and (max-width: 759px){
     .party-info-container {
         width: 300px;
@@ -236,17 +250,17 @@ h1, p, h2, h3 {
     }
     .party-info-container, .member-container {
         width: 200px;
-	background-color: rgb(31, 30, 30);
+	    background-color: rgb(31, 30, 30);
     }
     .playing-display {
         height: 390px;
-	background-color: rgb(31, 30, 30);
+	    background-color: rgb(31, 30, 30);
     }
     body, html {
-	background-color: rgb(31, 30, 30);
+	    background-color: rgb(31, 30, 30);
     }
     .party-info-container {
 	box-shadow: none;
-	background-color: rgb(31, 30, 30);
+	    background-color: rgb(31, 30, 30);
     }
 }

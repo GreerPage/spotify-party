@@ -94,7 +94,7 @@ function Functions() {
     );
 }
 function MemberList(props) {
-    var members = props.members
+    var members = props.members;
     if (props.loaded) {
         var elems = Object.keys(members).map((member) => {
             if (members[member].owner) {
@@ -117,9 +117,11 @@ function MemberList(props) {
 		    <InviteDropdown />
 	    </div>
             <h2 style={{color: 'white'}}>Members:</h2>
-            <ul className="member-list">
-                {elems}
-            </ul>
+            <div className="member-list-container custom-scrollbar">
+                <ul className="member-list">
+                    {elems}
+                </ul>
+            </div>
         </div>
     );
 }
