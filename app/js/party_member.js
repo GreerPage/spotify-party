@@ -17,7 +17,7 @@ class PartyMember extends React.Component {
                 .then((dat) => {
                     if (dat != '') {
                         let data1 = JSON.parse(dat);
-                        this.checkForErrors(data1);
+                        this.checkForErrors(data, data1);
                     }
                 });
         }
@@ -35,12 +35,12 @@ class PartyMember extends React.Component {
                 .then((dat) => {
                     if (dat != '') {
                         let data1 = JSON.parse(dat);
-                        this.checkForErrors(data1);
+                        this.checkForErrors(data, data1);
                     }
                 });
         }
     }
-    checkForErrors(data1) {
+    checkForErrors(data, data1) {
         if (data1.error) {
             if (data1.error.status === 401){
                 if (data1.error.message === 'The access token expired' || data.error.message === 'Invalid access token') {
@@ -51,14 +51,16 @@ class PartyMember extends React.Component {
                     });
                 }
             }
-            if (data1.error.reason === "NO_ACTIVE_DEVICE") {
-                console.log('error: no active device');
-                this.setState({error: 'Error: no active device!!!', errorSub: 'open a Spotify client and start playing a track, then refresh!'});
-                return;
-            }
-            if (data1.errr.reason !== "NO_ACTIVE_DEVICE") {
-                this.setState({error: null, errorSub: null});
-                return;
+            if (data1.error.reason) {
+                if (data1.error.reason === "NO_ACTIVE_DEVICE") {
+                    console.log('error: no active device');
+                    this.setState({error: 'Error: no active device!!!', errorSub: 'open a Spotify client and start playing a track, then refresh!'});
+                    return;
+                }
+                if (data1.errr.reason !== "NO_ACTIVE_DEVICE") {
+                    this.setState({error: null, errorSub: null});
+                    return;
+                }
             }
         }
     }

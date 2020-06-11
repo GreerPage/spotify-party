@@ -11,12 +11,12 @@ class PartyOwner extends React.Component {
             .then(res =>  {
                 if (res.status === 204) {
                     console.log('error: no active device');
-                    this.setState({error: 'Error: no active device!!!'});
+                    this.setState({error: 'Error: no active device!!!', errorSub: 'open a spotify client and start playing a track!'});
                     return null;
                 }
                 else {    
                     if (this.state.error) {
-                        this.setState({error: null});
+                        this.setState({error: null, errorSub: null});
                         return this.getListening();
                     }
                     return res.json();
@@ -93,7 +93,7 @@ class PartyOwner extends React.Component {
             .then(res => {
                     if (res.status === 204) {
                         console.log('error: no active device');
-                        this.setState({error: 'Error: no active device!!!'});
+                        this.setState({error: 'Error: no active device!!!', errorSub: 'open a spotify client and start playing a track!'});
                         return null;
                     }
                     else {    
@@ -182,6 +182,7 @@ class PartyOwner extends React.Component {
                         <div className="playing-display">
                             <img id="cat-gif" src="/static/images/cat.gif"/>
                             <h3 style={{color: 'white'}}>{this.state.error}</h3>
+                            <p style={{color: 'white'}}>{this.state.errorSub}</p>
                         </div>
                         :
                         <Playing cover={this.state.cover} song={this.state.song} artists={this.state.artists} loaded={this.state.songLoaded} />
