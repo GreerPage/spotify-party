@@ -101,7 +101,6 @@ h1, p, h2, h3 {
     justify-content: center;
     left: 50%;
     transform: translateX(-50%);
-    box-shadow: #111 0 0 10px;
 }
 #home-link img {
     position: relative;
