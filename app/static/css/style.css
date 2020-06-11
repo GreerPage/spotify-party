@@ -41,10 +41,11 @@ h1, p, h2, h3 {
     color: rgb(31, 30, 30);
 }
 .center {
-    position: absolute; 
-    left: 50%; 
+    position: absolute;
     top: 30%;
-    transform: translate(-40%);
+    left: 52%;
+    width: 75%;
+    transform: translateX(-50%);
 }
 .topbar {
     position: fixed;
