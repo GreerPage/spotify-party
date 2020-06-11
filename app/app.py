@@ -129,10 +129,14 @@ def party(name):
         abort(404)
     username = request.cookies.get('username')
     party_key = request.cookies.get('party_key')
+    user_id = request.cookies.get('user_id')
     if not username:
         return redirect('/login?redirect=/party/{}'.format(name))
-    if username==parties[name]['owner'] and party_key==parties[name]['key']:
-        return render_template('party_owner.html', host=request.host)
+    if username==parties[name]['owner']:
+        if user_id == parties[name]['owner_id'] or party_key==parties[name]['key']:
+            resp = make_response(render_template('party_owner.html', host=request.host))
+            resp.set_cookie('party_key', parties[name]['key'])
+            return resp
     resp = make_response(render_template('party_member.html', host=request.host, party_host=parties[name]['owner']))
     if not readjson(user_json)[username]['premium']:
         resp = make_response(render_template('not_premium.html', host=request.host))
