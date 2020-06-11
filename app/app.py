@@ -103,12 +103,13 @@ def create():
     owner = request.cookies.get('username')
     if not owner: 
         return redirect('/login?redirect=create')
-    if request.cookies.get('party_id') != None:
-        return redirect('/party/{}'.format(request.cookies.get('party_id')))
     party_id, party_key = randomchars(10), randomchars(40)
     checkjson('parties')
     checkjson('userdata')
     users, data = readjson(user_json), readjson(party_json)
+    for party in data:
+        if data[party]['owner'] == owner:
+            return redirect('/party/{}'.format(party))
     data[party_id] = {
         'owner': owner, 'owner_id': request.cookies.get('user_id'), 
         'key': party_key, 
