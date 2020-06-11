@@ -139,6 +139,10 @@ h1, p, h2, h3 {
     padding-top: 10px;
     z-index: 1500;
 }
+#cat-gif {
+    width: 300px;
+    border-radius: 10px;
+}
 .invite-button {
     margin: 8px;
     padding: 0 8px 0 8px;

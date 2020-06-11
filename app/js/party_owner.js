@@ -8,8 +8,24 @@ class PartyOwner extends React.Component {
         fetch('https://api.spotify.com/v1/me/player/currently-playing', {headers: {
             Authorization: 'Bearer ' + this.token
         }})
-            .then(res =>  res.json())
-            .then(data =>{
+            .then(res =>  {
+                if (res.status === 204) {
+                    console.log('error: no active device');
+                    this.setState({error: 'Error: no active device!!!'});
+                    return null;
+                }
+                else {    
+                    if (this.state.error) {
+                        this.setState({error: null});
+                        return this.getListening();
+                    }
+                    return res.json();
+                }
+            })
+            .then(data => {
+                if (!data) {
+                    return;
+                }
                 if (data.error) {
                     if (data.error.status === 401){
                         if (data.error.message === 'The access token expired' || data.error.message === 'Invalid access token'){
@@ -62,7 +78,7 @@ class PartyOwner extends React.Component {
                     console.log('back', data);
                     data.party_id = getCookie('party_id');
                     data.party_key = getCookie('party_key');
-                    this.server.emit('update', data)
+                    this.server.emit('update', data);
                     this.data = data;
                 }
                 if (!this.state.song) {
@@ -74,8 +90,20 @@ class PartyOwner extends React.Component {
         fetch('https://api.spotify.com/v1/me/player/currently-playing', {headers: {
             Authorization: 'Bearer ' + this.token
         }})
-            .then(res =>  res.json())
+            .then(res => {
+                    if (res.status === 204) {
+                        console.log('error: no active device');
+                        this.setState({error: 'Error: no active device!!!'});
+                        return null;
+                    }
+                    else {    
+                        return res.json();
+                    }
+                })
             .then(data =>{
+                if (!data) {
+                    return
+                }
                 if (data.error) {
                     if (data.error.status === 401){
                         if (data.error.message === 'The access token expired' || data.error.message === 'Invalid access token'){
@@ -92,6 +120,7 @@ class PartyOwner extends React.Component {
                 console.log('new', data);
                 data.party_id = getCookie('party_id');
                 data.party_key = getCookie('party_key');
+                this.data = data;
                 this.server.emit('update', data);
                 this.setPlaying(data);
             });
@@ -149,7 +178,14 @@ class PartyOwner extends React.Component {
                     <TopBar left='end' />
                 </div>
                 <div className="party-info-container">
-                    <Playing cover={this.state.cover} song={this.state.song} artists={this.state.artists} loaded={this.state.songLoaded} />
+                    {this.state.error ? 
+                        <div className="playing-display">
+                            <img id="cat-gif" src="/static/images/cat.gif"/>
+                            <h3 style={{color: 'white'}}>{this.state.error}</h3>
+                        </div>
+                        :
+                        <Playing cover={this.state.cover} song={this.state.song} artists={this.state.artists} loaded={this.state.songLoaded} />
+                    }
                     <MemberList members={this.state.members} loaded={this.state.membersLoaded} />
                 </div>
             </div>
