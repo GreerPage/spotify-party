@@ -51,7 +51,7 @@ h1, p, h2, h3 {
     position: fixed;
     z-index: 2;
     top: 0;
-    height: 80px;
+    height: 60px;
     width: 100%;
     background-color: rgb(24, 24, 24);
     padding-bottom: 16px;
@@ -81,6 +81,10 @@ h1, p, h2, h3 {
     margin: 30px;
     word-wrap: break-word;
 }
+.member-list-container {
+    height: 350px;
+    overflow: auto;
+}
 .member-list {
     list-style: none;
     font-size: 25px;
@@ -102,12 +106,11 @@ h1, p, h2, h3 {
     justify-content: center;
     left: 50%;
     transform: translateX(-50%);
-    box-shadow: #111 0 0 10px;
 }
 #home-link img {
     position: relative;
-    top: 3px;
-    height: 60px;
+    top: 0px;
+    height: 50px;
 }
 #home-link {
     position: relative;
@@ -117,7 +120,7 @@ h1, p, h2, h3 {
 #logout-link {
     font-size: 20px;
     position: absolute;
-    top: 35px;
+    top: 25px;
     right: 15%;
     color: white;
     text-decoration: none;
@@ -140,6 +143,10 @@ h1, p, h2, h3 {
     padding: 3px;
     padding-top: 10px;
     z-index: 1500;
+}
+#cat-gif {
+    width: 300px;
+    border-radius: 10px;
 }
 .invite-button {
     margin: 8px;
@@ -216,7 +223,17 @@ h1, p, h2, h3 {
         -ms-user-select: none;
             user-select: none;
 }
-
+.custom-scrollbar::-webkit-scrollbar {
+    width: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: rgb(17, 17, 17);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgb(53, 52, 52);
+    border-radius: 5px;
+}
 @media screen and (max-width: 759px){
     .party-info-container {
         width: 300px;
@@ -234,17 +251,17 @@ h1, p, h2, h3 {
     }
     .party-info-container, .member-container {
         width: 200px;
-	background-color: rgb(31, 30, 30);
+	    background-color: rgb(31, 30, 30);
     }
     .playing-display {
         height: 390px;
-	background-color: rgb(31, 30, 30);
+	    background-color: rgb(31, 30, 30);
     }
     body, html {
-	background-color: rgb(31, 30, 30);
+	    background-color: rgb(31, 30, 30);
     }
     .party-info-container {
 	box-shadow: none;
-	background-color: rgb(31, 30, 30);
+	    background-color: rgb(31, 30, 30);
     }
 }

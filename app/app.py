@@ -103,12 +103,13 @@ def create():
     owner = request.cookies.get('username')
     if not owner: 
         return redirect('/login?redirect=create')
-    if request.cookies.get('party_id') != None:
-        return redirect('/party/{}'.format(request.cookies.get('party_id')))
     party_id, party_key = randomchars(10), randomchars(40)
     checkjson('parties')
     checkjson('userdata')
     users, data = readjson(user_json), readjson(party_json)
+    for party in data:
+        if data[party]['owner'] == owner:
+            return redirect('/party/{}'.format(party))
     data[party_id] = {
         'owner': owner, 'owner_id': request.cookies.get('user_id'), 
         'key': party_key, 
@@ -128,10 +129,14 @@ def party(name):
         abort(404)
     username = request.cookies.get('username')
     party_key = request.cookies.get('party_key')
+    user_id = request.cookies.get('user_id')
     if not username:
         return redirect('/login?redirect=/party/{}'.format(name))
-    if username==parties[name]['owner'] and party_key==parties[name]['key']:
-        return render_template('party_owner.html', host=request.host)
+    if username==parties[name]['owner']:
+        if user_id == parties[name]['owner_id'] or party_key==parties[name]['key']:
+            resp = make_response(render_template('party_owner.html', host=request.host))
+            resp.set_cookie('party_key', parties[name]['key'])
+            return resp
     resp = make_response(render_template('party_member.html', host=request.host, party_host=parties[name]['owner']))
     if not readjson(user_json)[username]['premium']:
         resp = make_response(render_template('not_premium.html', host=request.host))
@@ -186,13 +191,11 @@ def join(data):
     username = data['username']
     party = data['party_id']
     user_data, parties = readjson(user_json), readjson(party_json) 
-    owner = False
     if party in parties:
-        members = parties[party]['members']
-        if username not in members:
-            members[username] = {'link': user_data[username]['link'], 'owner': owner}
-        else: 
-            owner = members[username]['owner']
+        members, owner = parties[party]['members'], False
+        if username == parties[party]['owner']:
+            owner = True
+        members[username] = {'link': user_data[username]['link'], 'owner': owner}
         parties[party]['members'] = members
         writejson(party_json, parties)
         print(username + ' joined ' + party)

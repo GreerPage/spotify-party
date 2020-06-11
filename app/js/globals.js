@@ -94,7 +94,7 @@ function Functions() {
     );
 }
 function MemberList(props) {
-    var members = props.members
+    var members = props.members;
     if (props.loaded) {
         var elems = Object.keys(members).map((member) => {
             if (members[member].owner) {
@@ -117,9 +117,11 @@ function MemberList(props) {
 		    <InviteDropdown />
 	    </div>
             <h2 style={{color: 'white'}}>Members:</h2>
-            <ul className="member-list">
-                {elems}
-            </ul>
+            <div className="member-list-container custom-scrollbar">
+                <ul className="member-list">
+                    {elems}
+                </ul>
+            </div>
         </div>
     );
 }
@@ -171,5 +173,14 @@ function Artist(props) {
         <span>
             <a className="spotify-link" href={props.link} target="_blank">{props.name}</a>
         </span>
+    );
+}
+function PartyError(props) {
+    return (
+        <div className="playing-display">
+            <img id="cat-gif" src="/static/images/cat.gif"/>
+            <h3 style={{color: 'white'}}>{props.error}</h3>
+            <p style={{color: 'white'}}>{props.sub}</p>
+        </div>
     );
 }
