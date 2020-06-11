@@ -17,17 +17,7 @@ class PartyMember extends React.Component {
                 .then((dat) => {
                     if (dat != '') {
                         let data1 = JSON.parse(dat);
-                        if (data1.error) {
-                            if (data1.error.status === 401){
-                                if (data1.error.message === 'The access token expired' || data.error.message === 'Invalid access token') {
-                                    console.log('refreshing token')
-                                    refreshToken().then(t => {
-                                        this.token = t;
-                                        this.updateListening(data);
-                                    });
-                                }
-                            }
-                        }  
+                        this.checkForErrors(data1);
                     }
                 });
         }
@@ -45,19 +35,31 @@ class PartyMember extends React.Component {
                 .then((dat) => {
                     if (dat != '') {
                         let data1 = JSON.parse(dat);
-                        if (data1.error) {
-                            if (data1.error.status === 401){
-                                if (data1.error.message === 'The access token expired' || data.error.message === 'Invalid access token') {
-                                    console.log('refreshing token')
-                                    refreshToken().then(t => {
-                                        this.token = t;
-                                        this.updateListening(data);
-                                    });
-                                }
-                            }
-                        }  
+                        this.checkForErrors(data1);
                     }
                 });
+        }
+    }
+    checkForErrors(data1) {
+        if (data1.error) {
+            if (data1.error.status === 401){
+                if (data1.error.message === 'The access token expired' || data.error.message === 'Invalid access token') {
+                    console.log('refreshing token')
+                    refreshToken().then(t => {
+                        this.token = t;
+                        this.updateListening(data);
+                    });
+                }
+            }
+            if (data1.error.reason === "NO_ACTIVE_DEVICE") {
+                console.log('error: no active device');
+                this.setState({error: 'Error: no active device!!!', errorSub: 'open a Spotify client and start playing a track, then refresh!'});
+                return;
+            }
+            if (data1.errr.reason !== "NO_ACTIVE_DEVICE") {
+                this.setState({error: null, errorSub: null});
+                return;
+            }
         }
     }
     componentDidMount() {
@@ -104,7 +106,15 @@ class PartyMember extends React.Component {
                 <div>
                     <TopBar left='leave' elem={this.button()} />
                     <div className="party-info-container">
-                        <Playing cover={this.state.cover} song={this.state.song} artists={this.state.artists} loaded={this.state.songLoaded} />
+                        {this.state.error ? 
+                            <div className="playing-display">
+                                <img id="cat-gif" src="/static/images/cat.gif"/>
+                                <h3 style={{color: 'white'}}>{this.state.error}</h3>
+                                <p style={{color: 'white'}}>{this.state.errorSub}</p>
+                            </div>
+                            :
+                            <Playing cover={this.state.cover} song={this.state.song} artists={this.state.artists} loaded={this.state.songLoaded} />
+                        }
                         <MemberList members={this.state.members} loaded={this.state.membersLoaded} />
                     </div>
                 </div>
