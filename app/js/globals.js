@@ -173,3 +173,12 @@ function Artist(props) {
         </span>
     );
 }
+function PartyError(props) {
+    return (
+        <div className="playing-display">
+            <img id="cat-gif" src="/static/images/cat.gif"/>
+            <h3 style={{color: 'white'}}>{props.error}</h3>
+            <p style={{color: 'white'}}>{props.sub}</p>
+        </div>
+    );
+}

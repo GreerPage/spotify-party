@@ -179,11 +179,7 @@ class PartyOwner extends React.Component {
                 </div>
                 <div className="party-info-container">
                     {this.state.error ? 
-                        <div className="playing-display">
-                            <img id="cat-gif" src="/static/images/cat.gif"/>
-                            <h3 style={{color: 'white'}}>{this.state.error}</h3>
-                            <p style={{color: 'white'}}>{this.state.errorSub}</p>
-                        </div>
+                        <PartyError error={this.state.error} sub={this.state.errorSub} />
                         :
                         <Playing cover={this.state.cover} song={this.state.song} artists={this.state.artists} loaded={this.state.songLoaded} />
                     }
