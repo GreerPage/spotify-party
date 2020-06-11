@@ -100,7 +100,7 @@ class PartyMember extends React.Component {
         window.location.pathname = '/';
     }
     button() {
-        return <a href="#" id="logout-link" onClick={() => this.leave()}>leave party</a>
+        return <a href="/" id="logout-link" onClick={() => this.leave()}>leave party</a>
     }
     render() {
         if (!this.state.over) {
