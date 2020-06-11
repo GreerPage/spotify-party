@@ -187,13 +187,11 @@ def join(data):
     username = data['username']
     party = data['party_id']
     user_data, parties = readjson(user_json), readjson(party_json) 
-    owner = False
     if party in parties:
-        members = parties[party]['members']
-        if username not in members:
-            members[username] = {'link': user_data[username]['link'], 'owner': owner}
-        else: 
-            owner = members[username]['owner']
+        members, owner = parties[party]['members'], False
+        if username == parties[party]['owner']:
+            owner = True
+        members[username] = {'link': user_data[username]['link'], 'owner': owner}
         parties[party]['members'] = members
         writejson(party_json, parties)
         print(username + ' joined ' + party)
