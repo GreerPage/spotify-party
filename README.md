@@ -5,6 +5,10 @@ An app to sync Spotify playback between users.
 
 [https://spotify.greerpage.com](https://spotify.greerpage.com) - if people use it I will get a real domain name
 
+![license](https://img.shields.io/github/license/GreerPage/spotify-party)
+![contributors](https://img.shields.io/github/contributors/greerpage/spotify-party)
+
+
 ## About
 This project uses the [Spotify Web API](https://developer.spotify.com/documentation/web-api/) to get and set user playback. It is using [Socket.IO](https://github.com/socketio/socket.io) to sync user playback. Essentially, the host sends requests to the Spotify API and when it detects a change, it sends the updated information to the Socket.IO server which disributes necessary information to the clients. 
 
@@ -21,7 +25,7 @@ This project uses the [Spotify Web API](https://developer.spotify.com/documentat
     - Essentially, when the host sends new information with the update method the server sends the new playback to all members of the corresponding party
     - This code can be found in `app/app.py`
 - ### Web Server
-    - The web server is written in [Flask](https://palletsprojects.com/p/flask/)
+    - The web server is written in Python with [Flask](https://palletsprojects.com/p/flask/)
     - The web server handles all of the routing and the rendering of HTML files and such
     - The code for the web server can be found in `app/app.py` along with the Socket.IO server
 - ### JSON
@@ -51,9 +55,9 @@ $ npx babel --watch . --out-dir ../static/js/build --presets react-app/prod
 ```
 - Make `app/secrets.py`
 ```python
-# spotify client + secret id (https://developer.spotify.com/dashboard)
-client_id = your_client_id
-secret = your_client_secret
+# spotify client and secret id (https://developer.spotify.com/dashboard)
+client_id = 'your_client_id'
+secret = 'your_client_secret'
 ```
 - Run Flask
 ```bash
