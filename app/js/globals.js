@@ -63,6 +63,9 @@ function LoginButton(props) {
 }
 
 function TopBar(props) {
+    if (props.left === 'none') {
+	var left = <span></span>
+    }
     if (!props.left) {
         var left = <a href="/logout" id="logout-link">logout</a>;
     }

@@ -27,12 +27,13 @@ class Home extends React.Component {
         }
         else {
             return (
-                <div className='center'>
-		    <div className='home-inner'>
+		<div>
+		    <TopBar left='none' />
+		    <div className='center'>
 			<h1 style={{color: 'white', fontSize: '40px'}}>Welcome to spotify party!</h1>
-			<LoginButton text="Log in with Spotify" /><img className='home-icon' src="/static/images/favicon.png"></img>
+			<LoginButton className='noselect' text='Log in with Spotify' />
 		    </div>
-                </div>
+		</div>
             );
         }
     }

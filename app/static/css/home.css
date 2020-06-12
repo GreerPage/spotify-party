@@ -17,19 +17,4 @@
     display: inline-block;
 }
 .welcome-box p {color: white}
-.home-icon {
-    display: block;
-    position: relative;
-    bottom: 54px;
-    left: 216px;
-    margin: 16px;
-}
-.home-inner {
-    margin: auto;
-    width: 50%;
-}
-@media screen and (max-width: 544px){
-    .home-inner {
-	width: 100%;
-    }
-}
+

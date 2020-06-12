@@ -35,17 +35,21 @@ h1, p, h2, h3 {
     text-decoration: none;
     font-size: 20px;
     border-radius: 60px;
+    display: inline-block;
+    white-space: nowrap;
 }
 .code-box:focus {
     outline: 0;
     color: rgb(31, 30, 30);
 }
 .center {
-    position: absolute;
-    top: 30%;
-    left: 52%;
-    width: 75%;
-    transform: translateX(-50%);
+    margin: auto;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 250px;
+    width: 500px;
+    height: 300px;
 }
 .topbar {
     position: fixed;
@@ -263,5 +267,10 @@ h1, p, h2, h3 {
     .party-info-container {
 	box-shadow: none;
 	    background-color: rgb(31, 30, 30);
+    }
+}
+@media screen and (max-width: 500px){
+    .center {
+	width: 260px;
     }
 }
