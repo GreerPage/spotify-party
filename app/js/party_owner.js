@@ -38,9 +38,15 @@ class PartyOwner extends React.Component {
                             return;
                         }
                     }
-                }
-                if (!this.data) {
-                    this.data = data;
+                    if (data.error.message === 'Only valid bearer authentication supported') {
+                        console.log('refreshing token');
+                        refreshToken().then(t => {
+                            this.token = t;
+                            this.updateListening();
+                            console.log('token rereshed');
+                        });
+                        return;
+                    }
                 }
                 if (this.data.item.uri != data.item.uri) {
                     console.log('new', data);
@@ -84,6 +90,7 @@ class PartyOwner extends React.Component {
                 if (!this.state.song) {
                     this.setPlaying(data);
                 }
+                this.data = data;
             })
     }
     getListening() {
@@ -139,6 +146,10 @@ class PartyOwner extends React.Component {
         });
     }
     componentDidMount() {
+        if (!getCookie('username')) {
+            let p = window.location.pathname;
+            window.location.pathname = '/login?redirect=' + p;
+        }
         this.server = io();
         this.server.on('connect', () => console.log('connected'))
         this.server.on('join', (data) => {
