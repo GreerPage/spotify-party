@@ -91,7 +91,7 @@ class PartyOwner extends React.Component {
                     this.setPlaying(data);
                 }
                 this.data = data;
-            })
+            });
     }
     getListening() {
         fetch('https://api.spotify.com/v1/me/player/currently-playing', {headers: {

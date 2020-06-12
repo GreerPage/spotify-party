@@ -76,7 +76,7 @@ function TopBar(props) {
         var left = <a href={`/end/${window.location.pathname.replace('/party/', '')}`} id="logout-link">end party</a>;
     }
     return (
-        <div className='topbar'>
+        <div className='topbar noselect'>
             <div>
                 <a href='/' id="home-link"><img src="/static/images/icon.png"/></a>
                 {left}
@@ -100,7 +100,7 @@ function MemberList(props) {
             if (members[member].owner) {
                 return (
                     <li key={member}><a className="spotify-link" href={members[member].link} target="_blank">{member}</a>
-                        <span><img style={{height: '20px', marginLeft: '10px'}} src="/static/images/crown.png"/></span>
+                        <span><img className="noselect" style={{height: '20px', marginLeft: '10px'}} src="/static/images/crown.png"/></span>
                     </li>
                 );
             }
@@ -116,7 +116,7 @@ function MemberList(props) {
 		    <InviteButton />
 		    <InviteDropdown />
 	    </div>
-            <h2 style={{color: 'white'}}>Members:</h2>
+            <h2 className="noselect" style={{color: 'white'}}>Members:</h2>
             <div className="member-list-container custom-scrollbar">
                 <ul className="member-list">
                     {elems}
@@ -132,7 +132,7 @@ function Playing(props) {
     if (props.loaded){
         return (
             <div className="playing-display">
-                <h2 style={{color: 'white'}}>Currently playing:</h2>
+                <h2 className="noselect" style={{color: 'white'}}>Currently playing:</h2>
                 <Cover cover={cover} />
                 <SongTitle song={song} />
                 <Artists artists={artists} />
@@ -144,14 +144,14 @@ function Playing(props) {
 function Cover(props) {
     return (
         <a href={props.cover.link} target="_blank">
-            <img style={{borderRadius: '10px'}} src={props.cover.img}/>
+            <img className="noselect" style={{borderRadius: '10px'}} src={props.cover.img}/>
         </a>
     );
 }
 function SongTitle(props) {
     return (
         <a href={props.song.link} target="_blank" className="spotify-link">
-            <h3>{props.song.name}</h3>
+            <h3 className="noselect">{props.song.name}</h3>
         </a>
     );
 }
@@ -171,7 +171,7 @@ function Artists(props) {
 function Artist(props) {
     return (
         <span>
-            <a className="spotify-link" href={props.link} target="_blank">{props.name}</a>
+            <a className="spotify-link noselect" href={props.link} target="_blank">{props.name}</a>
         </span>
     );
 }
