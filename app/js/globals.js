@@ -153,9 +153,11 @@ function Cover(props) {
 }
 function SongTitle(props) {
     return (
-        <a href={props.song.link} target="_blank" className="spotify-link">
-            <h3>{props.song.name}</h3>
-        </a>
+        <h3>
+            <a href={props.song.link} target="_blank" className="spotify-link" style={{width: 'fit-content'}}>
+                {props.song.name}
+            </a>
+        </h3>
     );
 }
 function Artists(props) {
