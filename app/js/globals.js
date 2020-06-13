@@ -99,26 +99,17 @@ function Functions() {
 function MemberList(props) {
     var members = props.members;
     if (props.loaded) {
-        var elems = Object.keys(members).map((member) => {
-            if (members[member].owner) {
-                return (
-                    <li key={member}><a className="spotify-link" href={members[member].link} target="_blank">{member}</a>
-                        <span><img className="noselect" style={{height: '20px', marginLeft: '10px'}} src="/static/images/crown.png"/></span>
-                    </li>
-                );
-            }
-            return <li key={member}><a className="spotify-link" href={members[member].link} target="_blank">{member}</a></li>;
-        });
+        elems = <Members members={members} />;
     }
     else {
-        elems = <li>loading...</li>
+        elems = <ul className="member-list"><li>loading...</li></ul>
     }
     return (
         <div className="member-container">
-	    <div className="dropdown">
-		    <InviteButton />
-		    <InviteDropdown />
-	    </div>
+            <div className="dropdown">
+                <InviteButton />
+                <InviteDropdown />
+            </div>
             <h2 className="noselect" style={{color: 'white'}}>Members:</h2>
             <div className="member-list-container custom-scrollbar">
                 <ul className="member-list">
@@ -128,6 +119,29 @@ function MemberList(props) {
         </div>
     );
 }
+
+function Members(props) {
+    var members = props.members;
+    var elems = Object.keys(members).map((member) => {
+        return <Member key={member} name={member} link={members[member].link} owner={members[member].owner} />
+    });
+    return (
+        <ul className="member-list">
+           {elems}
+        </ul>
+    );
+}
+function Member(props) {
+    if (props.owner) {
+        return (
+            <li key={props.name}><a className="spotify-link" href={props.link} target="_blank">{props.name}</a>
+                <span><img className="noselect" style={{height: '20px', marginLeft: '10px'}} src="/static/images/crown.png"/></span>
+            </li>
+        );
+    }
+    return <li key={props.name}><a className="spotify-link" href={props.link} target="_blank">{props.name}</a></li>;
+}
+
 function Playing(props) {
     var cover = props.cover;
     var song = props.song;
