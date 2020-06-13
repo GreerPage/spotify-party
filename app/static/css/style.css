@@ -50,6 +50,7 @@ h1, p, h2, h3 {
     top: 250px;
     width: 500px;
     height: 300px;
+    text-align: center;
 }
 .topbar {
     position: fixed;
