@@ -154,7 +154,7 @@ function Cover(props) {
 function SongTitle(props) {
     return (
         <a href={props.song.link} target="_blank" className="spotify-link">
-            <h3 className="noselect">{props.song.name}</h3>
+            <h3>{props.song.name}</h3>
         </a>
     );
 }
@@ -174,7 +174,7 @@ function Artists(props) {
 function Artist(props) {
     return (
         <span>
-            <a className="spotify-link noselect" href={props.link} target="_blank">{props.name}</a>
+            <a className="spotify-link" href={props.link} target="_blank">{props.name}</a>
         </span>
     );
 }
