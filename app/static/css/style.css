@@ -239,6 +239,22 @@ h1, p, h2, h3 {
     background-color: rgb(53, 52, 52);
     border-radius: 5px;
 }
+#gh {
+    text-align: center;
+    height: 40px;
+    width: 100%;
+    padding-top: 40px;
+}
+#gh a {
+    text-decoration: none;
+    color: white;
+}
+#gh img {
+    display: inline-block;
+    vertical-align: middle;
+    height: auto;
+    width: 48px;
+}
 @media screen and (max-width: 759px){
     .party-info-container {
         width: 300px;
