@@ -240,13 +240,10 @@ h1, p, h2, h3 {
     border-radius: 5px;
 }
 #gh {
-    position: absolute;
-    right: 0;
-    left: 0;
     text-align: center;
-    margin: 12px auto;
-    line-height: 32px;
-    bottom: 12px;
+    height: 40px;
+    width: 100%;
+    padding-top: 40px;
 }
 #gh a {
     text-decoration: none;
