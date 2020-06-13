@@ -136,6 +136,7 @@ def party(name):
         if user_id == parties[name]['owner_id'] or party_key==parties[name]['key']:
             resp = make_response(render_template('party_owner.html', host=request.host))
             resp.set_cookie('party_key', parties[name]['key'])
+            resp.set_cookie('party_id', name)
             return resp
     resp = make_response(render_template('party_member.html', host=request.host, party_host=parties[name]['owner']))
     if not readjson(user_json)[username]['premium']:
