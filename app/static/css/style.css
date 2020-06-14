@@ -209,14 +209,6 @@ h1, p, h2, h3 {
     float: left;
 }
 .show{display: block}
-#error-text {
-    margin: auto;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    color: #ffffff;
-    transform: translateX(-50%);
-}
 .hidden {
     display: none;
 }
