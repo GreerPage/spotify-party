@@ -65,6 +65,11 @@ class PartyMember extends React.Component {
         }
     }
     componentDidMount() {
+        if (!this.token) {
+            refreshToken().then(t => {
+                this.token = t;
+            });
+        }
         document.cookie='party_id='+window.location.pathname.replace('/party/', '');
         this.server.on('connect', () => {
             this.server.emit('join', {username: getCookie('username'), party_id: getCookie('party_id')});
