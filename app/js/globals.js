@@ -112,9 +112,7 @@ function MemberList(props) {
             </div>
             <h2 className="noselect" style={{color: 'white'}}>Members:</h2>
             <div className="member-list-container custom-scrollbar">
-                <ul className="member-list">
-                    {elems}
-                </ul>
+                {elems}
             </div>
         </div>
     );

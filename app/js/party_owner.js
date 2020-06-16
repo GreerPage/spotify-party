@@ -48,6 +48,9 @@ class PartyOwner extends React.Component {
                         return;
                     }
                 }
+                if(!this.data) {
+                    this.data = data;
+                }
                 if (this.data.item.uri != data.item.uri) {
                     console.log('new', data);
                     data.party_id = getCookie('party_id');
