@@ -85,6 +85,8 @@ def logged_in():
         if user not in data:    
             data[user] = {'token': token, 'refresh': refresh, 'id': user_id, 'link': link, 'premium': premium}
         else:
+            data[user]['token'] = token
+            data[user]['premium'] = premium
             user_id = data[user]['id']
         writejson(user_json, data)
         resp = make_response('<script src="/static/js/globals.js"></script><script src="/static/js/loggedin.js"></script>')
