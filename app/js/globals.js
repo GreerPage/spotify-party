@@ -81,7 +81,7 @@ function TopBar(props) {
     return (
         <div className='topbar noselect'>
             <div>
-                <a href='/' id="home-link"><img dragable="false" src="/static/images/icon.png"/></a>
+                <a href='/' id="home-link"><img draggable={false} src="/static/images/icon.png"/></a>
                 {left}
             </div>
         </div>
@@ -159,7 +159,7 @@ function Playing(props) {
 function Cover(props) {
     return (
         <a href={props.cover.link} target="_blank">
-            <img className="noselect" style={{borderRadius: '10px'}} src={props.cover.img} dragable="false"/>
+            <img className="noselect" style={{borderRadius: '10px'}} src={props.cover.img} draggable={false}/>
         </a>
     );
 }
