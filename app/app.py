@@ -249,4 +249,4 @@ def update(data):
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host='192.168.0.16')
+    socketio.run(app, debug=True)
