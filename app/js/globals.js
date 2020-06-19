@@ -76,7 +76,10 @@ function TopBar(props) {
         var left = props.elem;
     }
     if (props.left === 'end') {
-        var left = <a href={`/end/${window.location.pathname.replace('/party/', '')}`} id="logout-link">end party</a>;
+        var left = <a href={`/end/${window.location.pathname.replace('/party/', '')}`} onClick={() => props.func()} id="logout-link">end party</a>;
+    }
+    if (props.children) {
+        var left = props.children[0];
     }
     return (
         <div className='topbar noselect'>

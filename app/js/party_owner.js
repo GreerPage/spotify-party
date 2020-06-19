@@ -188,9 +188,9 @@ class PartyOwner extends React.Component {
     render() {
         return (
             <div>
-                <div onClick={() => this.end()}>  
-                    <TopBar left='end' />
-                </div>
+                <TopBar left='end'>
+                    <a href={`/end/${window.location.pathname.replace('/party/', '')}`} onClick={() => this.end()} id="logout-link">end party</a>;
+                </TopBar>
                 <div className="party-info-container">
                     {this.state.error ? 
                         <PartyError error={this.state.error} sub={this.state.errorSub} />

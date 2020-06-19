@@ -227,6 +227,7 @@ def end_party(data):
     key = data['key']
     party = parties[party_id]
     if party['key'] == key:
+        print(party_id + ' has been ended')
         emit('end', '{} has ended this party'.format(party['owner']), room=party_id)
 
 @socketio.on('update')
