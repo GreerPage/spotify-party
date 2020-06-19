@@ -133,7 +133,7 @@ function Member(props) {
     if (props.owner) {
         return (
             <li key={props.name}><a className="spotify-link" href={props.link} target="_blank">{props.name}</a>
-                <span><img className="noselect" style={{height: '20px', marginLeft: '10px'}} src="/static/images/crown.png"/></span>
+                <span><img className="noselect" style={{height: '20px', marginLeft: '10px'}} draggable={false} src="/static/images/crown.png"/></span>
             </li>
         );
     }
