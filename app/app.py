@@ -70,7 +70,6 @@ def logged_in():
         'client_id': client_id,
         'client_secret': secret
     }).json()
-    print(code)
     if 'access_token' in response:
         token, refresh = response['access_token'], response['refresh_token']
         user_info = requests.get('https://api.spotify.com/v1/me', headers = {'Authorization': 'Bearer {}'.format(token)}).json()
@@ -232,6 +231,9 @@ def end_party(data):
 
 @socketio.on('update')
 def update(data):
+    user = None
+    if 'user' in data:
+        user = data['user']
     artists = [{'name': a['name'], 'link': a['external_urls']['spotify']} for a in data['item']['artists']]
     ret_data = {
         'song': {'name': data['item']['name'], 'link': data['item']['album']['external_urls']['spotify'] + '?highlight=' + data['item']['uri'],}, 
@@ -240,10 +242,11 @@ def update(data):
         'artists': artists,
         'cover': {'img': data['item']['album']['images'][1]['url'], 'link': data['item']['album']['external_urls']['spotify']},
         'time': data['progress_ms'],
+        'user': user
     }
     print(json.dumps(ret_data, indent=2))
     emit('update', ret_data, room=data['party_id'])
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app, debug=True, host='192.168.0.16')

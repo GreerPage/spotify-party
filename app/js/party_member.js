@@ -86,6 +86,17 @@ class PartyMember extends React.Component {
             this.setState({members: data.members, membersLoaded: true});
         });
         this.server.on('update', (data) => {
+            if (data.user) {
+                if (data.user === getCookie('username')) {
+                    console.log('updating', data);
+                    this.updateListening(data);
+                    this.setState({cover: data.cover, song: data.song, artists: data.artists, songLoaded: true});
+                    return;
+                }
+                else {
+                    return;
+                }
+            }
             console.log('updating', data);
             this.updateListening(data);
             this.setState({cover: data.cover, song: data.song, artists: data.artists, songLoaded: true});

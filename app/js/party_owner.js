@@ -96,7 +96,7 @@ class PartyOwner extends React.Component {
                 this.data = data;
             });
     }
-    getListening() {
+    getListening(user) {
         fetch('https://api.spotify.com/v1/me/player/currently-playing', {headers: {
             Authorization: 'Bearer ' + this.token
         }})
@@ -130,6 +130,9 @@ class PartyOwner extends React.Component {
                 console.log('new', data);
                 data.party_id = getCookie('party_id');
                 data.party_key = getCookie('party_key');
+                if (user) {
+                    data.user = user;
+                }
                 this.data = data;
                 this.server.emit('update', data);
                 this.setPlaying(data);
@@ -158,7 +161,7 @@ class PartyOwner extends React.Component {
         this.server.on('join', (data) => {
             if (data.username != getCookie('username')) {
                 console.log(data.username + ' joined your party');
-                this.getListening();
+                this.getListening(data.username);
             }
             this.setState({members: data.members, membersLoaded: true});
         });
