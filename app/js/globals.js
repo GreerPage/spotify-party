@@ -5,7 +5,7 @@ function InviteButton() {
 function InviteDropdown() {
 	return (
 	    <div id="invite-dropdown" className="dropdown-content">
-            <input spellCheck="false" readOnly={true} id="link-input" value={"http://" + window.location.hostname + "/party/" + getCookie("party_id")}></input>
+            <input spellCheck="false" readOnly={true} id="link-input" value={location.protocol + "//" + window.location.hostname + "/party/" + getCookie("party_id")}></input>
             <div onClick={() => {
                 document.getElementById("link-input").select();
                 document.execCommand("copy");
@@ -64,7 +64,7 @@ function LoginButton(props) {
 
 function TopBar(props) {
     if (props.left === 'none') {
-	var left = <span></span>
+	    var left = <span></span>
     }
     if (!props.left) {
         var left = <a href="/logout" id="logout-link">logout</a>;
