@@ -5,14 +5,16 @@ import os
 import json
 import requests
 import random
+
 try:
-    from .secrets import client_id, secret
+    from .spotify_access import client_id, secret
 except:
-    from secrets import client_id, secret
+    from spotify_access import client_id, secret
 
 app = Flask(__name__, static_folder="static")
 path = os.path.dirname(os.path.abspath(__file__))
 socketio = SocketIO(app)
+
 scopes  = 'user-read-playback-state user-modify-playback-state user-read-currently-playing app-remote-control user-read-playback-position user-read-private user-read-email'
 user_json = os.path.join(path, 'json', 'userdata.json')
 party_json = os.path.join(path, 'json', 'parties.json')

@@ -1,5 +1,6 @@
 app/json
 app/secrets.py
+app/spotify_access.py
 app/static/js/build
 */node_modules/*
 */__pycache__/*
