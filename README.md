@@ -29,7 +29,7 @@ This project uses the [Spotify Web API](https://developer.spotify.com/documentat
 
 ## Building and Running
 - Prerequisites
-    - Python >=3.7 (and pip)
+    - Python 3.7 or 3.8 (and pip)
     - npm
 
 - Clone the repo and cd into it
